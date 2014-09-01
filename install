@@ -1,0 +1,3 @@
+#!/bin/sh
+wget -qO- http://install.opentosca.de/installNoStart | sh;
+wget -qO- http://install.opentosca.de/start | sh;

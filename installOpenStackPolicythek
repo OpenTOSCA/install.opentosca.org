@@ -1,0 +1,10 @@
+#!/bin/sh
+wget -qO- http://install.opentosca.de/installNoStart | sh;
+echo "\n\n### Install Policythek"
+wget files.opentosca.de/v1.1/CloudCycleExtensions/Policythek.war;
+sudo mv ./Policythek.war /var/lib/tomcat7/webapps/Policythek.war;
+echo "\n\n### Fix BPS settings for OpenStack"
+cd ~;
+cp ~/wso2bps/repository/conf/carbon.xml ~/wso2bps/repository/conf/carbon.xml.bak
+sed -i "s/<\!--HostName>www.wso2.org<\/HostName-->/<HostName>`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`<\/HostName>/g" ~/wso2bps/repository/conf/carbon.xml;
+wget -qO- http://install.opentosca.de/start | sh;

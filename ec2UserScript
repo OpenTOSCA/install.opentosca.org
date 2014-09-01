@@ -1,0 +1,3 @@
+#!/bin/bash
+wget -qO- http://install.opentosca.de/installEC2 | sudo su - ubuntu;
+sleep 60;

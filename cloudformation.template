@@ -1,0 +1,105 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+
+  "Description": "Installs the complete OpenTOSCA Ecosystem (Container, Vinothek, Winery) on one EC2 instance. (This is based on the sample template https://s3.amazonaws.com/cloudformation-templates-us-east-1/chef-server-ubuntu-configuration.template)",
+
+  "Parameters": {
+    "KeyName": {
+      "Type": "String",
+      "Description" : "Name of an existing EC2 KeyPair in this region to enable SSH access to the server"
+    },
+    "InstanceType" : {
+      "Description" : "EC2 instance type for OpenTOSCA (tested default is m1.medium)",
+      "Type" : "String",
+      "Default" : "m1.medium",
+      "AllowedValues" : [ "m1.medium","m1.large","m1.xlarge","m2.xlarge","m2.2xlarge","m2.4xlarge","m3.xlarge","m3.2xlarge","c1.medium","c1.xlarge","cc1.4xlarge","cc2.8xlarge","cg1.4xlarge"],
+      "ConstraintDescription" : "must be a valid EC2 instance type."
+    }
+  },
+
+  "Mappings" : {
+    "AWSInstanceType2Arch" : {
+      "t1.micro"    : { "Arch" : "64" },
+      "m1.small"    : { "Arch" : "64" },
+      "m1.medium"   : { "Arch" : "64" },
+      "m1.large"    : { "Arch" : "64" },
+      "m1.xlarge"   : { "Arch" : "64" },
+      "m2.xlarge"   : { "Arch" : "64" },
+      "m2.2xlarge"  : { "Arch" : "64" },
+      "m2.4xlarge"  : { "Arch" : "64" },
+      "m3.xlarge"   : { "Arch" : "64" },
+      "m3.2xlarge"  : { "Arch" : "64" },
+      "c1.medium"   : { "Arch" : "64" },
+      "c1.xlarge"   : { "Arch" : "64" }
+    },
+
+    "AWSRegionArch2AMI" : {
+      "us-east-1" :      { "32" : "ami-111", "64" : "ami-d0f89fb9" },
+      "us-west-1" :      { "32" : "ami-111", "64" : "ami-fe002cbb" },
+      "us-west-2" :      { "32" : "ami-111", "64" : "ami-70f96e40" },
+      "eu-west-1" :      { "32" : "ami-111", "64" : "ami-ce7b6fba" },
+      "sa-east-1"      : { "32" : "ami-111", "64" : "ami-a3da00be" },
+      "ap-southeast-1" : { "32" : "ami-111", "64" : "ami-64084736" },
+      "ap-southeast-2" : { "32" : "ami-111", "64" : "ami-04ea7a3e" },
+      "ap-northeast-1" : { "32" : "ami-111", "64" : "ami-fe6ceeff" }
+    }
+  },
+
+  "Resources" : {
+
+    "OpenToscaServer": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SecurityGroups": [ { "Ref": "OpenToscaSecurityGroup" } ],
+        "ImageId": { "Fn::FindInMap": [ "AWSRegionArch2AMI", { "Ref": "AWS::Region" }, { "Fn::FindInMap": [ "AWSInstanceType2Arch", { "Ref": "InstanceType" }, "Arch" ] } ]
+        },
+        "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
+            "#!/bin/bash\n",
+            "wget -qO- http://install.opentosca.de/installEC2 | sudo su - ubuntu\n",
+
+            "# If all went well, signal success\n",
+            "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
+                                                           "\"Reason\" : \"Installation script finished.\",",
+                                                           "\"UniqueId\" : \"1\",",
+                                                           "\"Data\" : \"Done\"}' ",
+                  "\"", {"Ref" : "OpenToscaWaitHandle"},"\"\n"
+        ]]}},
+        "KeyName": { "Ref": "KeyName" },
+        "InstanceType": { "Ref": "InstanceType" }
+      }
+    },
+
+    "OpenToscaSecurityGroup" : {
+      "Type" : "AWS::EC2::SecurityGroup",
+      "Properties" : {
+        "GroupDescription" : "Open TCP ports 22, 1337, 8080, and 9443.",
+        "SecurityGroupIngress" : [
+		  { "IpProtocol": "tcp", "FromPort": "22", "ToPort": "22", "CidrIp": "0.0.0.0/0" },
+          { "IpProtocol": "tcp", "FromPort": "1337", "ToPort": "1337", "CidrIp": "0.0.0.0/0" },
+		  { "IpProtocol": "tcp", "FromPort": "8080", "ToPort": "8080", "CidrIp": "0.0.0.0/0" },
+		  { "IpProtocol": "tcp", "FromPort": "9443", "ToPort": "9443", "CidrIp": "0.0.0.0/0" }
+        ]
+      }
+    },
+
+    "OpenToscaWaitHandle" : {
+      "Type" : "AWS::CloudFormation::WaitConditionHandle"
+    },
+
+    "OpenToscaWaitCondition" : {
+      "Type" : "AWS::CloudFormation::WaitCondition",
+      "DependsOn" : "OpenToscaServer",
+      "Properties" : {
+        "Handle"  : { "Ref" : "OpenToscaWaitHandle" },
+        "Timeout" : "1200"
+      }
+    }
+  },
+
+  "Outputs" : {
+     "OpenTOSCA" : {
+       "Description" : "URL of the OpenTOSCA Installation Overview page.",
+       "Value" : { "Fn::Join" : ["", ["http://", {"Fn::GetAtt" : [ "OpenToscaServer", "PublicDnsName" ]}, ":8080"]]}
+     }
+  }
+}

@@ -1,0 +1,67 @@
+#!/bin/sh
+echo "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA"
+echo "# Tested only for Ubuntu 12.04"
+echo "\n\n### Update Package List"
+sudo apt-get -y update;
+echo "\n\n### Install Java 7"
+sudo apt-get -y install java7-jdk
+echo "\n\n### Set JAVA_HOME"
+sudo sh -c "echo 'JAVA_HOME=\"'$(readlink -f /usr/bin/java | sed "s:bin/java::")'\"' >> /etc/environment";
+export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
+echo "\n\n### Check Java Version"
+javaversion=`$JAVA_HOME/bin/java -version 2>&1 | grep "1.[7|8]"`
+if [ "$javaversion" = "" ]; then
+   echo " \n\n\n\n########################################################\n"
+   echo " PLEASE MAKE SURE THAT JAVA 1.7 or higher is installed!!!"
+   echo " \n########################################################\n\n\n\n"
+fi
+echo "\n\n### Install Tomcat"
+sudo apt-get -y install tomcat7 tomcat7-admin unzip;
+sudo service tomcat7 stop;
+echo "\n\n### Set CATALINA_OPTS"
+sudo sh -c "echo 'CATALINA_OPTS=\"-Xms512m -Xmx1024m\"' >> /etc/default/tomcat7";
+echo "\n\n### Tomcat User Settings"
+cd ~;
+wget files.opentosca.de/v1/tomcat-users.xml;
+sudo mv ./tomcat-users.xml /var/lib/tomcat7/conf/tomcat-users.xml;
+echo "\n\n### Install ROOT.war"
+wget files.opentosca.de/v1/ROOT.war;
+sudo rm /var/lib/tomcat7/webapps/ROOT -fr;
+sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
+echo "\n\n### Install admin.war"
+wget files.opentosca.de/v1.1/admin.war;
+sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
+echo "\n\n### Install vinothek.war"
+wget files.opentosca.de/v1.1/vinothek.war;
+sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
+echo "\n\n### Install Winery"
+wget files.opentosca.de/v1.1/winery.war
+wget files.opentosca.de/v1.1/winery-topologymodeler.war
+sudo mv ./winery.war /var/lib/tomcat7/webapps/winery.war;
+sudo mv ./winery-topologymodeler.war /var/lib/tomcat7/webapps/;
+echo "\n\n### Import Winery Repository (into home)"
+sudo mkdir /usr/share/tomcat7/winery-repository;
+wget files.opentosca.de/v1.1/winery-repository.zip;
+sudo unzip -qo winery-repository.zip -d /usr/share/tomcat7/winery-repository;
+sudo chown -R tomcat7:tomcat7 /usr/share/tomcat7/winery-repository;
+echo "\n\n### Start Tomcat"
+sudo service tomcat7 start;
+echo "\n\n### Install WSO2 BPS"
+cd ~;
+wget files.opentosca.de/v1/wso2bps-2.1.2.zip;
+unzip -qo wso2bps-2.1.2.zip;
+mv wso2bps-2.1.2/ wso2bps/
+chmod +x wso2bps/bin/wso2server.sh;
+echo "\n\n### REST Extension"
+cd ~;
+wget files.opentosca.de/v1/bpel4restlight1.1.jar;
+mv bpel4restlight1.1.jar wso2bps/repository/components/lib/;
+echo "\n\n### Configure REST Extension"
+cd ~;
+wget files.opentosca.de/v1/bps.xml;
+mv bps.xml wso2bps/repository/conf/bps.xml;
+echo "\n\n### Install OpenTOSCA"
+cd ~;
+wget files.opentosca.de/v1.1/OpenTOSCA.zip;
+unzip -qo OpenTOSCA.zip;
+chmod +x OpenTOSCA/startup.sh;
