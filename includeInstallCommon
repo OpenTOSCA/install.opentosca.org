@@ -40,7 +40,7 @@ sudo mv ./winery.war /var/lib/tomcat7/webapps/winery.war;
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat7/webapps/;
 echo "\n\n### Import Winery Repository (into home)"
 sudo mkdir /usr/share/tomcat7/winery-repository;
-wget $BINPATH/winery-repository.zip;
+wget $SCRIPTPATH/third-party/winery-repository.zip;
 sudo unzip -qo winery-repository.zip -d /usr/share/tomcat7/winery-repository;
 sudo chown -R tomcat7:tomcat7 /usr/share/tomcat7/winery-repository;
 echo "\n\n### Start Tomcat"
