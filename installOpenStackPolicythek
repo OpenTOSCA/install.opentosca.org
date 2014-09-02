@@ -5,7 +5,7 @@ export BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/downlo
 echo "\n\nUsing tag: $TAG"
 wget -qO- $SCRIPTPATH/includeInstallCommon | sh;
 echo "\n\n### Install Policythek"
-wget files.opentosca.org/v1.1/CloudCycleExtensions/Policythek.war;
+wget $BINPATH/Policythek.war;
 sudo mv ./Policythek.war /var/lib/tomcat7/webapps/Policythek.war;
 echo "\n\n### Fix BPS settings for OpenStack"
 cd ~;
