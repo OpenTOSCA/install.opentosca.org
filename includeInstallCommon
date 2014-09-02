@@ -47,7 +47,8 @@ echo "\n\n### Start Tomcat"
 sudo service tomcat7 start;
 echo "\n\n### Install WSO2 BPS"
 cd ~;
-wget $SCRIPTPATH/third-party/wso2bps-2.1.2.zip;
+# Due to the file size limitation of GitHub (100MB)
+wget http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip;
 unzip -qo wso2bps-2.1.2.zip;
 mv wso2bps-2.1.2/ wso2bps/
 chmod +x wso2bps/bin/wso2server.sh;
