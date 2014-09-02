@@ -55,7 +55,7 @@
         },
         "UserData" : { "Fn::Base64" : { "Fn::Join" : ["", [
             "#!/bin/bash\n",
-            "wget -qO- http://install.opentosca.de/installEC2 | sudo su - ubuntu\n",
+            "wget -qO- http://install.opentosca.org/installEC2 | sudo su - ubuntu\n",
 
             "# If all went well, signal success\n",
             "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",

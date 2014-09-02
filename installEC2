@@ -1,7 +1,11 @@
 #!/bin/sh
-wget -qO- http://install.opentosca.de/installNoStart | sh;
+TAG="test"
+export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/$TAG"
+export BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/$TAG"
+echo "\n\nUsing tag: $TAG"
+wget -qO- $SCRIPTPATH/includeInstallCommon | sh;
 echo "\n\n### Fix BPS settings for EC2"
 cd ~;
 cp ~/wso2bps/repository/conf/carbon.xml ~/wso2bps/repository/conf/carbon.xml.bak
 sed -i "s/<\!--HostName>www.wso2.org<\/HostName-->/<HostName>`curl -s http://169.254.169.254/latest/meta-data/public-hostname`<\/HostName>/g" ~/wso2bps/repository/conf/carbon.xml;
-wget -qO- http://install.opentosca.de/start | sh;
+wget -qO- $SCRIPTPATH/includeInstallCommonStart | sh;

@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "\n\n### Start OpenTOSCA"
+echo "\n\n### Starting OpenTOSCA"
 cd ~;
 export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
 echo "Starting WSO2 BPS...";
@@ -9,7 +9,7 @@ cd OpenTOSCA;
 echo "Starting OpenTOSCA container...";
 nohup ./startup.sh >>~/OpenTOSCA/nohup.log 2>&1 &
 sleep 30;
-echo "Startup is finished in background...";
+echo "Startup will be finished in background...";
 echo " + Run 'tail ~/OpenTOSCA/nohup.log -f' to see what's happening";
 echo " + Wait a minute";
-echo " + Open 'http://<HOST>:8080' in your browser to access the OpenTOSCA Ecosystem";
+echo " + Open 'http://<HOST>:8080' in your browser to access the OpenTOSCA ecosystem";
