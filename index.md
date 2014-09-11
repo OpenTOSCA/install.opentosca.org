@@ -58,8 +58,11 @@ Step by step:
 #### Generic Script
 Short version: `wget -qO- http://install.opentosca.org/install | sh`
 
-1. Run this command and some minutes later you've a running OpenTOSCA instance. Tested for Ubuntu 12.04 LTS.
-1. After the installation and start up completed (~10min): Open the URL http://<YOUR-HOST>:8080/ in your browser
+Step by step:
+
+1. Run `wget -qO- http://install.opentosca.org/install | sh`
+1. After the installation and start up completed (~10min), you've a running OpenTOSCA instance
+1. Open the URL http://<YOUR-HOST>:8080/ in your browser
 
 #### Remarks
 
@@ -67,17 +70,49 @@ Short version: `wget -qO- http://install.opentosca.org/install | sh`
 * The Amazon and OpenStack scripts basically do the same as the generic script, but some EC2/OpenStack specific changes are required.
 For example, the external DNS name of the instance must be configured into WSO2 BPS, because otherwise it uses the IP of the machine which is only accessible from within the EC2 network.
 
-### Amazon CloudFormation
-tbd
 
-### Manual installation
-tbd
+### Amazon CloudFormation
+Short version: [CloudFormation Template](http://install.opentosca.de/cloudformation.template)
+
+Step by step:
+
+1. Open https://console.aws.amazon.com/cloudformation
+1. Create a new stack in region of your choice
+1. Select “Upload a Template File” and upload this template: http://install.opentosca.de/cloudformation.template
+1. Input
+    1. KeyName
+        1. Name of the EC2 Key Pair to access the created instance
+        1. Step 2 of the automated installation on Amazon EC2 shows how to create a new key pair
+    1. InstanceType
+        1. Default is `m1.medium`
+        1. Smaller instance types don’t work! (not enough memory)
+1. Create Stack
+
+
+### Manual Installation of OpenTOSCA Container
+
+Step by step:
+
+1. Install Java 1.7 and Tomcat 7.x
+1. Replace [tomcat-users.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/blob/master/third-party/tomcat-users.xml)
+1. Deploy WARs [ROOT.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/ROOT.war), [admin.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/admin.war), [vinothek.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/vinothek.war)), i.e., copy into Tomcat webapps folder
+1. Download and unzip [OpenTOSCA.zip](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/OpenTOSCA.zip) and [wso2bps-2.1.2.zip](www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip)
+1. Rename folder `wso2bps-2.1.2` into `wso2bps`
+1. Install BPEL4Rest extension on BPS
+    1. Copy [bpel4restlight1.1.jar](https://github.com/OpenTOSCA/OpenTOSCA.github.io/blob/master/third-party/bpel4restlight1.1.jar) into folder `wso2bps/repository/components/lib`
+    1. Replace `wso2bps/repository/conf/bps.xml` with [bps.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/blob/master/third-party/bps.xml)
+1. Start Tomcat (depends on how you installed it) and wait
+1. Start WSO2BPS (`wso2bps/bin/wso2server.sh` or .bat) and wait
+1. Start OpenTOSCA (`OpenTOSCA/startup.sh` or .bat) and wait
+1. Open: http://<HOST>:8080/
 
 
 ## Repositories
 
 * [OpenTOSCA container - TOSCA runtime](https://github.com/OpenTOSCA/container)
 * [Vinothek - OpenTOSCA self-service portal](https://github.com/OpenTOSCA/vinothek)
+* [Landing page of OpenTOSCA container](https://github.com/OpenTOSCA/ui-root)
+* [Admin Page of OpenTOSCA container](https://github.com/OpenTOSCA/ui-admin)
 
 ## Known Major Issues
 
