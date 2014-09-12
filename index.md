@@ -35,7 +35,7 @@ Step by step:
     1. Connect to the instance using SSH
     1. Run `wget -qO- http://install.opentosca.org/installEC2 | sh`
     1. Wait for ~10 min
-    1. Open the URL http://<publicDNS>:8080/ in your browser
+    1. Open `http://<publicDNS>:8080/`
 
 #### OpenStack
 Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
@@ -53,7 +53,7 @@ Step by step:
     1. Connect to the instance using SSH
     1. Run `wget -qO- http://install.opentosca.org/installOpenStack | sh`
     1. Wait for ~10 min
-    1. Open the URL http://<publicDNS>:8080/ in your browser
+    1. Open `http://<publicDNS>:8080/`
 
 #### Generic Script
 Short version: `wget -qO- http://install.opentosca.org/install | sh`
@@ -62,7 +62,7 @@ Step by step:
 
 1. Run `wget -qO- http://install.opentosca.org/install | sh`
 1. After the installation and start up completed (~10min), you've a running OpenTOSCA instance
-1. Open the URL http://<YOUR-HOST>:8080/ in your browser
+1. Open `http://<HOST>:8080/`
 
 #### Remarks
 
@@ -93,18 +93,19 @@ Step by step:
 
 Step by step:
 
-1. Install Java 1.7 and Tomcat 7.x
-1. Replace [tomcat-users.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/blob/master/third-party/tomcat-users.xml)
-1. Deploy WARs [ROOT.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/ROOT.war), [admin.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/admin.war), [vinothek.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/vinothek.war)), i.e., copy into Tomcat webapps folder
+1. Install Java 7 and Tomcat 7.x (Packages: tomcat7 and tomcat7-admin)
+1. Add `CATALINA_OPTS=\"-Xms512m -Xmx1024m\"` to file `/etc/default/tomcat7`
+1. Replace [tomcat-users.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/blob/master/third-party/tomcat-users.xml) in `/var/lib/tomcat7/conf/`
+1. Copy WARs [ROOT.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/ROOT.war), [admin.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/admin.war), [vinothek.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/vinothek.war)) into Tomcat `webapps` folder
 1. Download and unzip [OpenTOSCA.zip](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/OpenTOSCA.zip) and [wso2bps-2.1.2.zip](http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip)
-1. Rename folder `wso2bps-2.1.2` into `wso2bps`
+1. Rename folder `wso2bps-2.1.2` ro `wso2bps`
 1. Install BPEL4Rest extension on BPS
-    1. Copy [bpel4restlight1.1.jar](https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.jar) into folder `wso2bps/repository/components/lib`
-    1. Replace `wso2bps/repository/conf/bps.xml` with [bps.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bps.xml)
-1. Start Tomcat (depends on how you installed it) and wait
-1. Start WSO2BPS (`wso2bps/bin/wso2server.sh` or .bat) and wait
-1. Start OpenTOSCA (`OpenTOSCA/startup.sh` or .bat) and wait
-1. Open: http://<HOST>:8080/
+    1. Copy [bpel4restlight1.1.jar](https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.jar) into folder `wso2bps/repository/components/lib/`
+    1. Replace [bps.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bps.xml) in `wso2bps/repository/conf/`
+1. (Re)start Tomcat
+1. Start WSO2BPS (`wso2bps/bin/wso2server.sh` or `wso2server.bat`) and wait until started
+1. Start OpenTOSCA (`OpenTOSCA/startup.sh` or `startup.bat`) and wait until started
+1. Open: `http://<HOST>:8080/`
 
 
 ## Repositories
