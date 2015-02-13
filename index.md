@@ -98,7 +98,7 @@ Step by step:
 1. Replace [tomcat-users.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/blob/master/third-party/tomcat-users.xml) in `/var/lib/tomcat7/conf/`
 1. Copy WARs [ROOT.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/ROOT.war), [admin.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/admin.war), [vinothek.war](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/vinothek.war)) into Tomcat `webapps` folder
 1. Download and unzip [OpenTOSCA.zip](https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/v1.1/OpenTOSCA.zip) and [wso2bps-2.1.2.zip](http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip)
-1. Rename folder `wso2bps-2.1.2` ro `wso2bps`
+1. Rename folder `wso2bps-2.1.2` to `wso2bps`
 1. Install BPEL4Rest extension on BPS
     1. Copy [bpel4restlight1.1.jar](https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.jar) into folder `wso2bps/repository/components/lib/`
     1. Replace [bps.xml](https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bps.xml) in `wso2bps/repository/conf/`
