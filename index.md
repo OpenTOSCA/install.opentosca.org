@@ -1,9 +1,11 @@
 ---
-title: OpenTOSCA Ecosystem v1.1
+title: OpenTOSCA Ecosystem
 layout: index
 ---
 
-# OpenTOSCA Ecosystem v1.1
+# OpenTOSCA Ecosystem
+
+Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
 
 ## Documentation
 * [OpenTOSCA Documentation, Publications, Videos, Presentations](http://www.opentosca.org)
@@ -15,7 +17,8 @@ layout: index
 Run this command and some minutes later you've a running OpenTOSCA instance (tested for Ubuntu).
 
 #### Amazon EC2
-Short version: `wget -qO- http://install.opentosca.org/installEC2 | sh`
+Short version [v1.1, STABLE]: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/v1.1/installEC2 | sh`
+Short version [latest version, UNSTABLE]: `wget -qO- http://install.opentosca.org/installEC2 | sh`
 
 Step by step:
 
@@ -33,12 +36,14 @@ Step by step:
     1. Size: m1.medium or larger
     1. Security Group: Select security group created before
     1. Connect to the instance using SSH
-    1. Run `wget -qO- http://install.opentosca.org/installEC2 | sh`
+    1. [v1.1, STABLE] Run `wget -qO-  https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/v1.1/installEC2 | sh`
+	1. [latest version, UNSTABLE] Run `wget -qO- http://install.opentosca.org/installEC2 | sh`
     1. Wait for ~10 min
     1. Open `http://<publicDNS>:8080/`
 
 #### OpenStack
-Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
+Short version [v1.1, STABLE]: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/v1.1/installOpenStack | sh`
+Short version [latest version, UNSTABLE]: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
 
 Step by step:
 
@@ -51,12 +56,14 @@ Step by step:
     1. Access & Security Tab: Select keypair and security group created before
     1. Assign floating IP to instance
     1. Connect to the instance using SSH
-    1. Run `wget -qO- http://install.opentosca.org/installOpenStack | sh`
+    1. [v1.1, STABLE] Run `wget -qO-  https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/v1.1/installOpenStack | sh`
+	1. [latest version, UNSTABLE] Run `wget -qO- http://install.opentosca.org/installOpenStack | sh`
     1. Wait for ~10 min
     1. Open `http://<publicDNS>:8080/`
 
 #### Generic Script
-Short version: `wget -qO- http://install.opentosca.org/install | sh`
+Short version [v1.1, STABLE]: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/v1.1/install | sh`
+Short version [latest version, UNSTABLE]: `wget -qO- http://install.opentosca.org/install | sh`
 
 Step by step:
 
@@ -72,7 +79,8 @@ For example, the external DNS name of the instance must be configured into WSO2 
 
 
 ### Amazon CloudFormation
-Short version: [CloudFormation Template](http://install.opentosca.de/cloudformation.template)
+Short version [v1.1, STABLE]: [CloudFormation Template](https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/v1.1/cloudformation.template)
+Short version [latest version, UNSTABLE]: [CloudFormation Template](http://install.opentosca.de/cloudformation.template)
 
 Step by step:
 
