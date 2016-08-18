@@ -7,6 +7,10 @@ layout: index
 
 Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
 
+## Contact
+
+If you need support, contact us at opentosca@iaas.uni-stuttgart.de.
+
 ## Documentation
 * [OpenTOSCA Documentation, Publications, Videos, Presentations](http://www.opentosca.org)
 
