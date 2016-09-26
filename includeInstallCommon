@@ -55,7 +55,8 @@ chmod +x wso2bps/bin/wso2server.sh;
 echo "\n\n### REST Extension"
 cd ~;
 wget $SCRIPTPATH/third-party/bpel4restlight1.1.1.jar;
-mv bpel4restlight1.1.1.jar wso2bps/repository/components/lib/;
+mv  bpel4restlight1.1.1.jar wso2bps/repository/components/lib/;
+rm  wso2bps/repository/components/lib/bpel4restlight1.1.jar
 echo "\n\n### Configure REST Extension"
 cd ~;
 wget $SCRIPTPATH/third-party/bps.xml;
