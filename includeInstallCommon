@@ -54,8 +54,8 @@ mv wso2bps-2.1.2/ wso2bps/
 chmod +x wso2bps/bin/wso2server.sh;
 echo "\n\n### REST Extension"
 cd ~;
-wget $SCRIPTPATH/third-party/bpel4restlight1.1.jar;
-mv bpel4restlight1.1.jar wso2bps/repository/components/lib/;
+wget $SCRIPTPATH/third-party/bpel4restlight1.1.1.jar;
+mv bpel4restlight1.1.1.jar wso2bps/repository/components/lib/;
 echo "\n\n### Configure REST Extension"
 cd ~;
 wget $SCRIPTPATH/third-party/bps.xml;
@@ -64,4 +64,4 @@ echo "\n\n### Install OpenTOSCA"
 cd ~;
 wget $BINPATH/OpenTOSCA.zip;
 unzip -qo OpenTOSCA.zip;
-chmod +x OpenTOSCA/startup.sh;
+chmod +x OpenTOSCA/OpenTOSCA;
