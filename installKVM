@@ -1,0 +1,25 @@
+#!/bin/sh
+TAG="v1.3-beta"
+export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/$TAG"
+export BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/$TAG"
+echo "\n\nUsing tag: $TAG"
+wget -qO- $SCRIPTPATH/includeInstallCommon | sh;
+
+# install packages for kvm/qemu
+apt-get update
+apt-get install cpu-checker -y
+apt-get install qemu-system-x86 -y
+apt-get install qemu-kvm -y
+apt-get install libvirt-bin -y
+apt-get install virt-manager -y
+apt-get install bridge-utils -y
+apt-get install arpwatch -y
+
+# setup rights for tomcat7
+usermod -aG sudo tomcat7
+usermod -aG kvm tomcat7
+usermod -aG libvirtd tomcat7
+usermod -aG adm tomcat7
+service tomcat7 restart
+
+wget -qO- $SCRIPTPATH/includeInstallCommonStart | sh;
