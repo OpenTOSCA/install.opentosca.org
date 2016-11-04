@@ -16,7 +16,7 @@ apt-get install bridge-utils -yq;
 apt-get install arpwatch -yq;
 
 # setup rights for tomcat7
-echo 'tomcat7	ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers;
+echo 'tomcat7	ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers;
 
 usermod -aG sudo tomcat7;
 usermod -aG kvm tomcat7;
