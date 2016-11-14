@@ -6,22 +6,22 @@ echo "\n\nUsing tag: $TAG"
 wget -qO- $SCRIPTPATH/includeInstallCommon | sh;
 
 # install packages for kvm/qemu
-apt-get update;
-apt-get install cpu-checker -yq;
-apt-get install qemu-system-x86 -yq;
-apt-get install qemu-kvm -yq;
-apt-get install libvirt-bin -yq;
-apt-get install virt-manager -yq;
-apt-get install bridge-utils -yq;
-apt-get install arpwatch -yq;
+sudo apt-get update;
+sudo apt-get install cpu-checker -yq;
+sudo apt-get install qemu-system-x86 -yq;
+sudo apt-get install qemu-kvm -yq;
+sudo apt-get install libvirt-bin -yq;
+sudo apt-get install virt-manager -yq;
+sudo apt-get install bridge-utils -yq;
+sudo apt-get install arpwatch -yq;
 
 # setup rights for tomcat7
 echo 'tomcat7	ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers;
 
-usermod -aG sudo tomcat7;
-usermod -aG kvm tomcat7;
-usermod -aG libvirtd tomcat7;
-usermod -aG adm tomcat7;
-service tomcat7 restart;
+sudo usermod -aG sudo tomcat7;
+sudo usermod -aG kvm tomcat7;
+sudo usermod -aG libvirtd tomcat7;
+sudo usermod -aG adm tomcat7;
+sudo service tomcat7 restart;
 
 wget -qO- $SCRIPTPATH/includeInstallCommonStart | sh;
