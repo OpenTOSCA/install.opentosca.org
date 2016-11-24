@@ -1,0 +1,7 @@
+#!/bin/sh
+TAG="v1.3-beta"
+export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/OpenTOSCA.github.io/$TAG"
+export BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/$TAG"
+echo "\n\nUsing tag: $TAG"
+wget -qO- $SCRIPTPATH/includeInstallCommon | sh;
+wget -qO- $SCRIPTPATH/includeInstallCommonStart | sh;
