@@ -32,6 +32,8 @@ sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
 echo "\n\n### Install admin.war"
 wget $BINPATH/admin.war;
 sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
+wget $BINPATH/OpenTOSCAUi.war
+sudo mv ./OpenTOSCAUi.war /var/lib/tomcat7/webapps/OpenTOSCAUi.war
 echo "\n\n### Install vinothek.war"
 wget $BINPATH/vinothek.war;
 sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
