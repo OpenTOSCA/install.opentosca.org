@@ -35,5 +35,5 @@ sudo usermod -aG libvirtd tomcat7;
 sudo usermod -aG adm tomcat7;
 sudo service tomcat7 restart;
 
-wget -qO- $SCRIPTPATH/includeInstallCommon | sh;
-wget -qO- $SCRIPTPATH/includeInstallCommonStart | sh;
+wget -qO- $SCRIPTPATH/includeInstallCommon.sh | sh;
+wget -qO- $SCRIPTPATH/includeInstallCommonStart.sh | sh;

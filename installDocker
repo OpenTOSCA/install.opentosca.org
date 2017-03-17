@@ -15,5 +15,5 @@ sudo apt-get -y -q install docker-engine
 sudo echo 'DOCKER_OPTS="-D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"' > /etc/default/docker
 sudo service docker restart
 
-wget -qO- $SCRIPTPATH/includeInstallCommon | sh;
-wget -qO- $SCRIPTPATH/includeInstallCommonStart | sh;
+wget -qO- $SCRIPTPATH/includeInstallCommon.sh | sh;
+wget -qO- $SCRIPTPATH/includeInstallCommonStart.sh | sh;
