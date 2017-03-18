@@ -7,19 +7,35 @@ layout: index
 
 Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
 
-## Contact
-
-If you need support, contact us at opentosca@iaas.uni-stuttgart.de.
-
-## Documentation
-
-* [OpenTOSCA Documentation, Publications, Videos, Presentations](http://www.opentosca.org)
-
 ## Installation
+
+
+### General Remarks
+
+* If OpenTOSCA runs (in its default configuration) on a virtual machine, you need to configure the firewall so at least ports 22 (SSH), 1337 (OSGi running OpenTOSCA container), 8080 (Tomcat), 9443 and 9763 (Business Process Server) are open!
+* The Amazon and OpenStack scripts basically do the same as the generic script, but some EC2/OpenStack specific changes are required.
+  For example, the external DNS name of the instance must be configured into WSO2 BPS, because otherwise it uses the IP of the machine which is only accessible from within the EC2 network.
+
+
+
 
 ### Automated installation
 
 Run this command and some minutes later you've a running OpenTOSCA instance (tested for Ubuntu).
+
+
+#### Generic Script
+
+- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
+- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/install | sh` - Ubuntu 16.04, 64bit
+
+We recommend 2 CPUs, 6 GB of RAM, 100 GB hard disk space.
+
+Step by step:
+
+1. Run `wget -qO- http://install.opentosca.org/install | sh`
+1. After the installation and start up completed (~10min), you've a running OpenTOSCA instance
+1. Open `http://<HOST>:8080/`
 
 
 #### Amazon EC2
@@ -71,25 +87,6 @@ Step by step:
     1. Open `http://<publicDNS>:8080/`
 
 
-#### Generic Script
-
-- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
-- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/install | sh` - Ubuntu 16.04, 64bit
-
-Step by step:
-
-1. Run `wget -qO- http://install.opentosca.org/install | sh`
-1. After the installation and start up completed (~10min), you've a running OpenTOSCA instance
-1. Open `http://<HOST>:8080/`
-
-
-#### Remarks
-
-* If OpenTOSCA runs (in its default configuration) on a virtual machine, you need to configure the firewall so at least ports 22 (SSH), 1337 (OSGi running OpenTOSCA container), 8080 (Tomcat), 9443 and 9763 (Business Process Server) are open!
-* The Amazon and OpenStack scripts basically do the same as the generic script, but some EC2/OpenStack specific changes are required.
-  For example, the external DNS name of the instance must be configured into WSO2 BPS, because otherwise it uses the IP of the machine which is only accessible from within the EC2 network.
-
-
 ### Amazon CloudFormation
 
 [testing, UNSTABLE] Short version: [CloudFormation Template](http://install.opentosca.de/cloudformation.template)
@@ -111,7 +108,9 @@ Step by step:
 
 ## Repositories
 
-Head to our <https://github.com/opentosca/>.
+The OpenTOSCA eco system is open source and actively developed on GitHub. Please head to our <https://github.com/opentosca/>.
+
+Our main components are:
 
 * OpenTOSCA container - TOSCA runtime: https://github.com/OpenTOSCA/container
 * Vinothek - OpenTOSCA self-service portal: https://github.com/OpenTOSCA/vinothek
@@ -119,8 +118,17 @@ Head to our <https://github.com/opentosca/>.
 * Admin Page of OpenTOSCA container: https://github.com/OpenTOSCA/ui-admin
 * Winery: https://github.com/eclipse/winery
 
+
 ## Known Major Issues
 
 * OpenTOSCA Container
     * Restart of container not possible
     * The Partner Link role of the Build & Management Plans must be named “client”.
+
+## Contact
+
+If you need support, contact us at <opentosca@iaas.uni-stuttgart.de>.
+
+## Documentation
+
+* [OpenTOSCA Documentation, Publications, Videos, Presentations](http://www.opentosca.org)
