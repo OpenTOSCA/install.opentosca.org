@@ -119,7 +119,7 @@ mv bps.xml wso2bps/repository/conf/bps.xml
 
 echo "\n\n### Install OpenTOSCA\n"
 cd ~
-wget -N $BUILDPATH/container/$TAG/org.opentosca.container.product-linux.gtk.x86_x64.zip
+wget -N $BUILDPATH/container/$TAG/org.opentosca.container.product-linux.gtk.x86_64.zip
 mkdir OpenTOSCA
 cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
