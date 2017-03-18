@@ -5,9 +5,9 @@ if [ -z "$TAG" ]; then
   exit
 fi
 
-export BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/$TAG"
-THIRDPARTYPATH="http://files.opentosca.org/third-party/$TAG"
+BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/$TAG"
 BUILDPATH="http://builds.opentosca.org/"
+THIRDPARTYPATH="http://files.opentosca.org/third-party/$TAG"
 
 echo "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA"
 

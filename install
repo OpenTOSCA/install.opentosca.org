@@ -1,5 +1,5 @@
 #!/bin/sh
-TAG="master"
+export TAG="master"
 export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/$TAG"
 echo "\n\nUsing tag: $TAG"
 wget -qO- $SCRIPTPATH/includeInstallCommon.sh | sh;
