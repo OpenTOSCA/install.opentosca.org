@@ -5,7 +5,7 @@ if [ -z "$TAG" ]; then
   exit
 fi
 
-BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/$TAG"
+BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$TAG"
 BUILDPATH="http://builds.opentosca.org/"
 THIRDPARTYPATH="http://files.opentosca.org/third-party/$TAG"
 
