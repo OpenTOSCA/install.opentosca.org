@@ -67,7 +67,7 @@ sudo service tomcat8 start
 
 echo "\n\n### Install WSO2 BPS\n"
 cd ~
-wget -N $THIRDPARTYPATH/$TAG/wso2bps-2.1.2-java8.zip
+wget -N $THIRDPARTYPATH/wso2bps-2.1.2-java8.zip
 unzip -qo wso2bps-2.1.2-java8.zip
 mv wso2bps-2.1.2/ wso2bps/
 chmod +x wso2bps/bin/wso2server.sh
