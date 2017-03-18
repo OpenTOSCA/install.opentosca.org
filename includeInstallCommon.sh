@@ -35,7 +35,7 @@ sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
 #wget -N $BINPATH/ROOT.war;
 #sudo rm /var/lib/tomcat7/webapps/ROOT -fr;
 #sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
-sudo sh -c "echo 'Please open the UI' > ~tomcat8/webapps/ROOT/index.html"
+sudo sh -c "echo 'Please open the UI' > /var/lib/tomcat8/webapps/ROOT/index.html"
 
 #echo "\n\n### Install admin.war"
 #wget -N $BINPATH/admin.war;
@@ -85,7 +85,8 @@ mv bps.xml wso2bps/repository/conf/bps.xml
 
 echo "\n\n### Install OpenTOSCA\n"
 cd ~
-wget -N -O OpenTOSCA.zip $BUILDPATH/container/$TAG/org.opentosca.container.product-linux.gtk.x86.zip
+wget -N $BUILDPATH/container/$TAG/org.opentosca.container.product-linux.gtk.x86.zip
+mv org.opentosca.container.product-linux.gtk.x86.zip OpenTOSCA.zip
 mkdir OpenTOSCA
 cd OpenTOSCA
 unzip -qo ../OpenTOSCA.zip
