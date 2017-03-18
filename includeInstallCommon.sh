@@ -18,7 +18,7 @@ echo "\n\n### Include security fixes\n"
 sudo apt-get -y upgrade
 
 echo "\n\n### Install Tomcat 8\n"
-sudo apt-get -y install tomcat8 tomcat8-admin unzip fuse-zip
+sudo apt-get -y install tomcat8 tomcat8-admin zip unzip
 sudo service tomcat8 stop
 
 echo "\n\n### Set CATALINA_OPTS\n"
@@ -75,15 +75,18 @@ printf "\n\n### Retreive, Configure, and Install UI\n"
 wget -N $BUILDPATH/ui/$TAG/opentosca.war
 
 IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
-mount_point=$(TMPDIR=$PWD mktemp -d)
-fuse-zip opentosca.war "$mount_point"
-find "$mount_point" -type f -print0 | xargs -0 sed -i 's/dev.winery.opentosca.org/$IP/g'
-find "$mount_point" -type f -print0 | xargs -0 sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g'
-fusermount -u "$mount_point"
-rmdir "$mount_point"
-
+cd /tmp
+mkdir ui
+cd ui
+unzip ~/opentosca.war
+sed -i 's/dev.winery.opentosca.org/$IP/g' WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+sed -i 's/dev.winery.opentosca.org/$IP/g' WEB-INF/classes/static/main.bundle.js
+sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g' WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g' WEB-INF/classes/static/main.bundle.js
+zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+zip -r ~/opentosca.war WEB-INF/classes/static/main.bundle.js
+cd ~
 sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
-
 
 #echo "\n\n### Install vinothek.war"
 #wget -N $BINPATH/vinothek.war;
