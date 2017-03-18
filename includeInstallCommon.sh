@@ -66,8 +66,6 @@ uid = root
 EOF
 "
 
-sudo sh -c "echo 'Please open the UI at <HOST>:8080/opentosca' > /var/lib/tomcat8/webapps/ROOT/index.html"
-
 #echo "\n\n### Install admin.war"
 #wget -N $BINPATH/admin.war;
 #sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
