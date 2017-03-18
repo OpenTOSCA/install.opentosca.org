@@ -2,12 +2,12 @@
 
 This repository contains the installation scripts and binaries of the [OpenTOSCA ecosystem](http://www.opentosca.org).
 
-- [install](install) - installation on Ubuntu 16.04
+- [install](install) - installation on Ubuntu 16.04, 64bit
 - [install*](install) - installation on Ubuntu 16.04 on diverse environments
 
 ## Supporting files
 - `includeInstallCommon.sh` - included by the `install*` scripts for installation
-   - Ubuntu 16.04
+   - Ubuntu 16.04, 64bit
 - `includeInstallCommonStart.sh` - included by the `install*` scripts for startup 
 
 ## Styleguide
