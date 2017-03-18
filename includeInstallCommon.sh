@@ -1,72 +1,92 @@
 #!/bin/sh
-echo "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA"
-echo "\n\n### Update Package List"
-sudo apt-get -y update;
-echo "\n\n### Install Java 7"
-sudo apt-get -y install java7-jdk
-echo "\n\n### Set JAVA_HOME"
-sudo sh -c "echo 'JAVA_HOME=\"'$(readlink -f /usr/bin/java | sed "s:bin/java::")'\"' >> /etc/environment";
-export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
-echo "\n\n### Check Java Version"
-javaversion=`$JAVA_HOME/bin/java -version 2>&1 | grep "1.[7|8]"`
-if [ "$javaversion" = "" ]; then
-   echo " \n\n\n\n########################################################\n"
-   echo " PLEASE MAKE SURE THAT JAVA 1.7 or higher is installed!!!"
-   echo " \n########################################################\n\n\n\n"
+
+if [ -z "$TAG" ]; then
+  echo "A tag has to be given"
+  exit
 fi
-echo "\n\n### Install Tomcat"
-sudo apt-get -y install tomcat7 tomcat7-admin unzip;
-sudo service tomcat7 stop;
+
+export BINPATH="https://github.com/OpenTOSCA/OpenTOSCA.github.io/releases/download/$TAG"
+THIRDPARTYPATH="http://files.opentosca.org/third-party/$TAG"
+BUILDPATH="http://builds.opentosca.org/"
+
+echo "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA"
+
+echo "\n\n### Update Package List"
+sudo apt-get -y update
+
+echo "\n\n### Include security fixes"
+sudo apt-get -y upgrade
+
+echo "\n\n### Install Tomcat 8"
+sudo apt-get -y install tomcat8 tomcat8-admin unzip
+sudo service tomcat8 stop
+
 echo "\n\n### Set CATALINA_OPTS"
-sudo sh -c "echo 'CATALINA_OPTS=\"-Xms512m -Xmx1024m\"' >> /etc/default/tomcat7";
+sudo sh -c "echo 'CATALINA_OPTS=\"--Xmx1024m\"' >> /etc/default/tomcat8"
+
 echo "\n\n### Tomcat User Settings"
-cd ~;
-wget $SCRIPTPATH/third-party/tomcat-users.xml;
-wget $SCRIPTPATH/third-party/server.xml;
-sudo mv ./tomcat-users.xml /var/lib/tomcat7/conf/tomcat-users.xml;
-sudo mv ./server.xml /var/lib/tomcat7/conf/server.xml;
-echo "\n\n### Install ROOT.war"
-wget $BINPATH/ROOT.war;
-sudo rm /var/lib/tomcat7/webapps/ROOT -fr;
-sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
-echo "\n\n### Install admin.war"
-wget $BINPATH/admin.war;
-sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
-wget $BINPATH/OpenTOSCAUi.war
-sudo mv ./OpenTOSCAUi.war /var/lib/tomcat7/webapps/OpenTOSCAUi.war
-echo "\n\n### Install vinothek.war"
-wget $BINPATH/vinothek.war;
-sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
+cd ~
+wget $THIRDPARTYPATH/tomcat-users.xml
+wget $THIRDPARTYPATH/server.xml
+sudo mv ./tomcat-users.xml /var/lib/tomcat8/conf/tomcat-users.xml
+sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
+
+#echo "\n\n### Install ROOT.war"
+#wget $BINPATH/ROOT.war;
+#sudo rm /var/lib/tomcat7/webapps/ROOT -fr;
+#sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
+
+#echo "\n\n### Install admin.war"
+#wget $BINPATH/admin.war;
+#sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
+
+printf "\n\n### Install ui"
+wget $BUILDPATH/ui/$TAG/ui.war
+
+sudo mv ./ui.war /var/lib/tomca8/webapps/
+
+#echo "\n\n### Install vinothek.war"
+#wget $BINPATH/vinothek.war;
+#sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
+
 echo "\n\n### Install Winery"
-wget $SCRIPTPATH/third-party/winery.war
-wget $SCRIPTPATH/third-party/winery-topologymodeler.war
-sudo mv ./winery.war /var/lib/tomcat7/webapps/winery.war;
-sudo mv ./winery-topologymodeler.war /var/lib/tomcat7/webapps/;
+wget $BUILDPATH/winery/$TAG/winery.war
+wget $BUILDPATH/winery/$TAG//winery-topologymodeler.war
+sudo mv ./winery.war /var/lib/tomcat8/webapps
+sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
+
 echo "\n\n### Import Winery Repository (into home)"
-sudo mkdir /usr/share/tomcat7/winery-repository;
-wget $SCRIPTPATH/third-party/winery-repository.zip;
-sudo unzip -qo winery-repository.zip -d /usr/share/tomcat7/winery-repository;
-sudo chown -R tomcat7:tomcat7 /usr/share/tomcat7/winery-repository;
+sudo mkdir ~tomcat8/winery-repository;
+wget $THIRDPARTYPATH/winery-repository.zip;
+sudo unzip -qo winery-repository.zip -d ~tomcat8/winery-repository
+sudo chown -R tomcat8:tomcat8 ~tomcat8/winery-repository
+
 echo "\n\n### Start Tomcat"
-sudo service tomcat7 start;
+sudo service tomcat8 start
+
 echo "\n\n### Install WSO2 BPS"
-cd ~;
-# Due to the file size limitation of GitHub (100MB)
-wget http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip;
-unzip -qo wso2bps-2.1.2.zip;
+cd ~
+wget $THIRDPARTYPATH/wso2bps-2.1.2.zip
+unzip -qo wso2bps-2.1.2.zip
 mv wso2bps-2.1.2/ wso2bps/
-chmod +x wso2bps/bin/wso2server.sh;
+chmod +x wso2bps/bin/wso2server.sh
+
 echo "\n\n### REST Extension"
-cd ~;
-wget $SCRIPTPATH/third-party/bpel4restlight1.1.1.jar;
+cd ~
+wget $THIRDPARTYPATH/bpel4restlight1.1.1.jar
 rm  wso2bps/repository/components/lib/bpel4*
-mv  bpel4restlight1.1.1.jar wso2bps/repository/components/lib/;
+mv  bpel4restlight1.1.1.jar wso2bps/repository/components/lib/
+
 echo "\n\n### Configure REST Extension"
-cd ~;
-wget $SCRIPTPATH/third-party/bps.xml;
-mv bps.xml wso2bps/repository/conf/bps.xml;
+cd ~
+wget $THIRDPARTYPATH/bps.xml
+mv bps.xml wso2bps/repository/conf/bps.xml
+
 echo "\n\n### Install OpenTOSCA"
-cd ~;
-wget $BINPATH/OpenTOSCA.zip;
-unzip -qo OpenTOSCA.zip;
-chmod +x OpenTOSCA/OpenTOSCA;
+cd ~
+wget -O OpenTOSCA.zip $BUILDPATH/container/$TAG/org.opentosca.container.product-linux.gtk.x86.zip
+mkdir OpenTOSCA
+cd OpenTOSCA
+unzip -qo ../OpenTOSCA.zip
+chmod +x OpenTOSCA/OpenTOSCA
+cd ..
