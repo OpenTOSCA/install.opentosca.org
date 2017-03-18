@@ -24,8 +24,8 @@ Run this command and some minutes later you've a running OpenTOSCA instance (tes
 
 #### Amazon EC2
 
-[v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installEC2 | sh`<br />
-[testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/installEC2 | sh`
+- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installEC2 | sh`
+- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/installEC2 | sh`
 
 Step by step:
 
@@ -51,8 +51,8 @@ Step by step:
 
 #### OpenStack
 
-[v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installOpenStack | sh`<br />
-[testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
+- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installOpenStack | sh`
+- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh` - Ubuntu 16.04, 64bit
 
 Step by step:
 
@@ -73,10 +73,8 @@ Step by step:
 
 #### Generic Script
 
-Use Ubuntu 16.04.
-
-[v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`<br />
-[testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/install | sh`
+- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
+- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/install | sh` - Ubuntu 16.04, 64bit
 
 Step by step:
 
