@@ -75,11 +75,6 @@ printf "\n\n### Install UI\n"
 wget -N $BUILDPATH/ui/$TAG/opentosca.war
 sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
 
-printf "\n\n### Configure UI\n"
-IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
-find /var/lib/tomcat8/webapps/opentosca -type f -print0 | xargs -0 sed -i 's/dev.winery.opentosca.org/$IP/g'
-find /var/lib/tomcat8/webapps/opentosca -type f -print0 | xargs -0 sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g'
-
 #echo "\n\n### Install vinothek.war"
 #wget -N $BINPATH/vinothek.war;
 #sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
@@ -125,3 +120,8 @@ cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
 chmod +x OpenTOSCA
 cd ..
+
+printf "\n\n### Configure UI\n"
+IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+find /var/lib/tomcat8/webapps/opentosca -type f -print0 | xargs -0 sed -i 's/dev.winery.opentosca.org/$IP/g'
+find /var/lib/tomcat8/webapps/opentosca -type f -print0 | xargs -0 sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g'
