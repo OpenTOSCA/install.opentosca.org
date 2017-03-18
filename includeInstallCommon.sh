@@ -24,6 +24,10 @@ sudo service tomcat8 stop
 echo "\n\n### Set CATALINA_OPTS\n"
 sudo sh -c "echo 'CATALINA_OPTS=\"-Xmx1024m\"' >> /etc/default/tomcat8"
 
+echo "\n\n### Set JAVA_HOME"
+sudo sh -c "echo 'JAVA_HOME=\"'$(readlink -f /usr/bin/java | sed "s:bin/java::")'\"' >> /etc/environment";
+export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
+
 echo "\n\n### Tomcat User Settings\n"
 cd ~
 wget -N $THIRDPARTYPATH/tomcat-users.xml

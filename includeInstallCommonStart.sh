@@ -2,6 +2,9 @@
 echo "\n\n### Starting OpenTOSCA"
 cd ~
 
+echo "\n\n### Set JAVA_HOME"
+export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
+
 echo "Starting WSO2 BPS...";
 nohup ./wso2bps/bin/wso2server.sh >> ~/OpenTOSCA/wso2bps-nohup.log 2>&1 &
 sleep 30
