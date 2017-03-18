@@ -79,10 +79,10 @@ cd /tmp
 mkdir ui
 cd ui
 unzip ~/opentosca.war
-sed -i 's/dev.winery.opentosca.org/$IP/g' WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-sed -i 's/dev.winery.opentosca.org/$IP/g' WEB-INF/classes/static/main.bundle.js
-sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g' WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g' WEB-INF/classes/static/main.bundle.js
+sed -i "s/dev.winery.opentosca.org/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+sed -i "s/dev.winery.opentosca.org/$IP/g" WEB-INF/classes/static/main.bundle.js
+sed -i "s/opentosca-dev.iaas.uni-stuttgart.de/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+sed -i "s/opentosca-dev.iaas.uni-stuttgart.de/$IP/g" WEB-INF/classes/static/main.bundle.js
 zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
 zip -r ~/opentosca.war WEB-INF/classes/static/main.bundle.js
 cd ~
