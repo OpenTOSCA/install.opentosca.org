@@ -2,7 +2,6 @@
 echo "\n\n### Starting OpenTOSCA"
 cd ~
 
-echo "\n\n### Set JAVA_HOME"
 export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
 
 echo "Starting WSO2 BPS...";
