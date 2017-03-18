@@ -35,16 +35,43 @@ sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
 #wget -N $BINPATH/ROOT.war;
 #sudo rm /var/lib/tomcat7/webapps/ROOT -fr;
 #sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
-sudo sh -c "echo 'Please open the UI' > /var/lib/tomcat8/webapps/ROOT/index.html"
+cat << EOF | sudo tee /var/lib/tomcat8/webapps/ROOT/index.html
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta http-equiv="refresh" content="1;url=/opentosca/">
+        <script type="text/javascript">
+            window.location.href = "opentosca/"
+        </script>
+        <title>OpenTOSA</title>
+    </head>
+    <body>
+        Please wait while OpenTOSCA is loading...
+    </body>
+</html>
+EOF
+
+sudo sh -c "cat <<EOF > /root/rsyncd.conf
+use chroot = no
+gid = root
+uid = root
+[temp]
+        path = /tmp
+        read only = no
+        comment = winery
+EOF
+"
+
+sudo sh -c "echo 'Please open the UI at <HOST>:8080/opentosca' > /var/lib/tomcat8/webapps/ROOT/index.html"
 
 #echo "\n\n### Install admin.war"
 #wget -N $BINPATH/admin.war;
 #sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
 
 printf "\n\n### Install ui\n"
-wget -N $BUILDPATH/ui/$TAG/ui.war
-
-sudo mv ./ui.war /var/lib/tomcat8/webapps/
+# the ui is named "opentosca" to have nice urls
+wget -N $BUILDPATH/ui/$TAG/opentosca.war
+sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
 
 #echo "\n\n### Install vinothek.war"
 #wget -N $BINPATH/vinothek.war;
