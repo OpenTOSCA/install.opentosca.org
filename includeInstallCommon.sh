@@ -18,7 +18,7 @@ echo "\n\n### Include security fixes\n"
 sudo apt-get -y upgrade
 
 echo "\n\n### Install Tomcat 8\n"
-sudo apt-get -y install tomcat8 tomcat8-admin unzip
+sudo apt-get -y install tomcat8 tomcat8-admin unzip fuse-zip
 sudo service tomcat8 stop
 
 echo "\n\n### Set CATALINA_OPTS\n"
@@ -70,10 +70,20 @@ EOF
 #wget -N $BINPATH/admin.war;
 #sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
 
-printf "\n\n### Install UI\n"
+printf "\n\n### Retreive, Configure, and Install UI\n"
 # the ui is named "opentosca" to have nice urls
 wget -N $BUILDPATH/ui/$TAG/opentosca.war
+
+IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+mount_point=$(TMPDIR=$PWD mktemp -d)
+fuse-zip opentosca.war "$mount_point"
+find "$mount_point" -type f -print0 | xargs -0 sed -i 's/dev.winery.opentosca.org/$IP/g'
+find "$mount_point" -type f -print0 | xargs -0 sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g'
+fusermount -u "$mount_point"
+rmdir "$mount_point"
+
 sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
+
 
 #echo "\n\n### Install vinothek.war"
 #wget -N $BINPATH/vinothek.war;
@@ -120,8 +130,3 @@ cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
 chmod +x OpenTOSCA
 cd ..
-
-printf "\n\n### Configure UI\n"
-IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
-find /var/lib/tomcat8/webapps/opentosca -type f -print0 | xargs -0 sed -i 's/dev.winery.opentosca.org/$IP/g'
-find /var/lib/tomcat8/webapps/opentosca -type f -print0 | xargs -0 sed -i 's/opentosca-dev.iaas.uni-stuttgart.de/$IP/g'
