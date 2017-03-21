@@ -17,8 +17,6 @@ Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
   For example, the external DNS name of the instance must be configured into WSO2 BPS, because otherwise it uses the IP of the machine which is only accessible from within the EC2 network.
 
 
-
-
 ### Automated installation
 
 Run this command and some minutes later you've a running OpenTOSCA instance (tested for Ubuntu).
