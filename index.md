@@ -24,8 +24,8 @@ Run this command and some minutes later you've a running OpenTOSCA instance (tes
 
 #### Generic Script
 
-- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
-- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/install | sh` - Ubuntu 16.04, 64bit
+- [v1.1, STABLE, Ubuntu 12.04] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
+- [testing, UNSTABLE, Ubuntu 16.04, 64bit] Short version: `wget -qO- http://install.opentosca.org/install | sh`
 
 We recommend 2 CPUs, 6 GB of RAM, 100 GB hard disk space.
 
@@ -65,8 +65,8 @@ Step by step:
 
 #### OpenStack
 
-- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installOpenStack | sh`
-- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh` - Ubuntu 16.04, 64bit
+- [v1.1, STABLE, Ubuntu 12.04] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installOpenStack | sh`
+- [testing, UNSTABLE, Ubuntu 16.04, 64bit] Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
 
 Step by step:
 
