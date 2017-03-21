@@ -125,6 +125,14 @@ cd ~
 wget -N $THIRDPARTYPATH/bps.xml
 mv bps.xml wso2bps/repository/conf/bps.xml
 
+printf "\n\n### Install Docker\n"
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+sudo apt-get update
+sudo apt-get install -y docker-engine
+echo 'DOCKER_OPTS="-D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"' | sudo tee -a /etc/default/docker > /dev/null
+sudo service docker restart
+
 echo "\n\n### Install OpenTOSCA\n"
 cd ~
 wget -N $BUILDPATH/container/$TAG/org.opentosca.container.product-linux.gtk.x86_64.zip
