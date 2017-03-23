@@ -1,6 +1,4 @@
 #!/bin/sh
-# to fix the hostname unknown problem (Ubuntu > 14.04)
-sudo sh -c "echo '127.0.0.1' $(hostname) >> /etc/hosts";
 
 if [ -z "$TAG" ]; then
   echo "A tag has to be given"
