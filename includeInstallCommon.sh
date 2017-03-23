@@ -126,12 +126,21 @@ wget -N $THIRDPARTYPATH/bps.xml
 mv bps.xml wso2bps/repository/conf/bps.xml
 
 printf "\n\n### Install Docker\n"
-sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+#sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+#sudo apt-get update
+#sudo apt-get install -y docker-engine
+#echo 'DOCKER_OPTS="-D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"' | sudo tee -a /etc/default/docker > /dev/null
+#sudo service docker restart
+sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
-sudo apt-get install -y docker-engine
-echo 'DOCKER_OPTS="-D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"' | sudo tee -a /etc/default/docker > /dev/null
-sudo service docker restart
+sudo apt-get install docker-ce
+sudo service docker stop
+sed -ie "s/ExecStart=\/usr\/bin\/dockerd -H fd:\/\//ExecStart=\/usr\/bin\/dockerd -H fd:\/\/ -H tcp:\/\/0.0.0.0:2375/g" /lib/systemd/system/docker.service
+sudo systemctl daemon-reload
+sudo service docker start
 
 echo "\n\n### Install OpenTOSCA\n"
 cd ~
