@@ -41,8 +41,8 @@ export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
 
 echo "\n\n### Tomcat User Settings\n"
 cd ~
-wget -N $THIRDPARTYPATH/tomcat-users.xml
-wget -N $THIRDPARTYPATH/server.xml
+wget -N $THIRDPARTYPATH/tomcat-users.xml || (echo "not found"; exit 404)
+wget -N $THIRDPARTYPATH/server.xml || (echo "not found"; exit 404)
 sudo mv ./tomcat-users.xml /var/lib/tomcat8/conf/tomcat-users.xml
 sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
 
@@ -83,7 +83,7 @@ EOF
 
 printf "\n\n### Retreive, Configure, and Install UI\n"
 # the ui is named "opentosca" to have nice urls
-wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war
+wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war || (echo "not found"; exit 404)
 
 IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 cd /tmp
@@ -104,14 +104,14 @@ sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
 #sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
 
 echo "\n\n### Install Winery\n"
-wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war
-wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war
+wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war || (echo "not found"; exit 404)
+wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war || (echo "not found"; exit 404)
 sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
 
 echo "\n\n### Import Winery Repository (into home)\n"
 sudo mkdir ~tomcat8/winery-repository;
-wget -N $THIRDPARTYPATH/winery-repository.zip;
+wget -N $THIRDPARTYPATH/winery-repository.zip || (echo "not found"; exit 404)
 sudo unzip -qo winery-repository.zip -d ~tomcat8/winery-repository
 sudo chown -R tomcat8:tomcat8 ~tomcat8/winery-repository
 
@@ -120,20 +120,20 @@ sudo service tomcat8 start
 
 echo "\n\n### Install WSO2 BPS\n"
 cd ~
-wget -N $THIRDPARTYPATH/wso2bps-2.1.2-java8.zip
+wget -N $THIRDPARTYPATH/wso2bps-2.1.2-java8.zip || (echo "not found"; exit 404)
 unzip -qo wso2bps-2.1.2-java8.zip
 mv wso2bps-2.1.2/ wso2bps/
 chmod +x wso2bps/bin/wso2server.sh
 
 echo "\n\n### REST Extension\n"
 cd ~
-wget -N $THIRDPARTYPATH/bpel4restlight1.1.1.jar
+wget -N $THIRDPARTYPATH/bpel4restlight1.1.1.jar || (echo "not found"; exit 404)
 rm  wso2bps/repository/components/lib/bpel4*
 mv  bpel4restlight1.1.1.jar wso2bps/repository/components/lib/
 
 echo "\n\n### Configure REST Extension\n"
 cd ~
-wget -N $THIRDPARTYPATH/bps.xml
+wget -N $THIRDPARTYPATH/bps.xml || (echo "not found"; exit 404)
 mv bps.xml wso2bps/repository/conf/bps.xml
 
 printf "\n\n### Install Docker\n"
@@ -155,7 +155,7 @@ sudo service docker start
 
 echo "\n\n### Install OpenTOSCA\n"
 cd ~
-wget -N $BUILDPATH/container/$CONTAINER_VERSION/org.opentosca.container.product-linux.gtk.x86_64.zip
+wget -N $BUILDPATH/container/$CONTAINER_VERSION/org.opentosca.container.product-linux.gtk.x86_64.zip || (echo "not found"; exit 404)
 mkdir OpenTOSCA
 cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
