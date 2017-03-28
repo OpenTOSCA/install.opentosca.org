@@ -1,13 +1,24 @@
 #!/bin/sh
 
-if [ -z "$TAG" ]; then
-  echo "A tag has to be given"
+if [ -n "$TAG" ]; then
+  #in case tag is set, we take this as version for all installed components
+  export CONTAINER_VERSION=$TAG
+  export UI_VERSION=$TAG
+  export WINERY_VERSION=$TAG
+fi
+
+if [ -z "${TAG}${CONTAINER_VERSION}${$UI_VERSION}${WINERY_VERSION}" ]; then
+  echo "A tag or specific versions have to be given"
   exit
 fi
 
-BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$TAG"
+echo "Using container version $CONTAINER_VERSION"
+echo "Using ui version $UI_VERSION"
+echo "Using winery version $WINERY_VERSION"
+
+BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$CONTAINER_VERSION"
 BUILDPATH="http://builds.opentosca.org/"
-THIRDPARTYPATH="http://files.opentosca.org/third-party/$TAG"
+THIRDPARTYPATH="http://files.opentosca.org/third-party/$CONTAINER_VERSION"
 
 echo "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA\n"
 
@@ -72,7 +83,7 @@ EOF
 
 printf "\n\n### Retreive, Configure, and Install UI\n"
 # the ui is named "opentosca" to have nice urls
-wget -N $BUILDPATH/ui/$TAG/opentosca.war
+wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war
 
 IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 cd /tmp
@@ -93,8 +104,8 @@ sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
 #sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
 
 echo "\n\n### Install Winery\n"
-wget -N $BUILDPATH/winery/$TAG/winery.war
-wget -N $BUILDPATH/winery/$TAG//winery-topologymodeler.war
+wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war
+wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war
 sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
 
@@ -144,7 +155,7 @@ sudo service docker start
 
 echo "\n\n### Install OpenTOSCA\n"
 cd ~
-wget -N $BUILDPATH/container/$TAG/org.opentosca.container.product-linux.gtk.x86_64.zip
+wget -N $BUILDPATH/container/$CONTAINER_VERSION/org.opentosca.container.product-linux.gtk.x86_64.zip
 mkdir OpenTOSCA
 cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
