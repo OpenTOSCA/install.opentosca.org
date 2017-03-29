@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 if [ -n "$TAG" ]; then
   #in case tag is set, we take this as version for all installed components
