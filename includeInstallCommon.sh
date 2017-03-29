@@ -1,4 +1,6 @@
-#!/bin/sh -x
+#!/bin/sh
+
+printf "Common install routines...\n"
 
 if [ -n "$TAG" ]; then
   #in case tag is set, we take this as version for all installed components
@@ -20,7 +22,7 @@ BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$C
 BUILDPATH="http://builds.opentosca.org/"
 THIRDPARTYPATH="http://files.opentosca.org/third-party/$CONTAINER_VERSION"
 
-echo "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA\n"
+printf "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA\n"
 
 echo "\n\n### Update Package List\n"
 sudo apt-get -y update
