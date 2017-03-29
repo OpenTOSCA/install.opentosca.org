@@ -1,6 +1,7 @@
 #!/bin/sh
 
 printf "Common install routines...\n"
+echo "DEBUG: x${TAG}x${CONTAINER_VERSION}x${UI_VERSION}x${WINERY_VERSION}x"
 
 if [ -z "${TAG}${CONTAINER_VERSION}${UI_VERSION}${WINERY_VERSION}" ]; then
   echo "A tag or specific versions have to be given"
@@ -9,6 +10,7 @@ fi
 
 if [ -z "$CONTAINER_VERSION" ]; then
   #in case no specific version are set, we take the tag as version for all installed components
+  echo "CONTAINER_VERISON not set. Falling back to tag."
   export CONTAINER_VERSION=$TAG
   export UI_VERSION=$TAG
   export WINERY_VERSION=$TAG
