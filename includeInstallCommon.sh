@@ -9,7 +9,7 @@ if [ -n "$TAG" ]; then
   export WINERY_VERSION=$TAG
 fi
 
-if [ -z "${TAG}${CONTAINER_VERSION}${$UI_VERSION}${WINERY_VERSION}" ]; then
+if [ -z "${TAG}${CONTAINER_VERSION}${UI_VERSION}${WINERY_VERSION}" ]; then
   echo "A tag or specific versions have to be given"
   exit
 fi
