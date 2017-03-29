@@ -7,7 +7,7 @@ wget -qO- $SCRIPTPATH/includeInstallCommon.sh | sh;
 echo "\n\n### Install Policythek"
 wget $BINPATH/Policythek.war;
 sudo mv ./Policythek.war /var/lib/tomcat7/webapps/Policythek.war;
-echo "\n\n### Fix BPS settings for OpenStack"
+printf "### Fix BPS settings for OpenStack\n\n"
 cd ~;
 cp ~/wso2bps/repository/conf/carbon.xml ~/wso2bps/repository/conf/carbon.xml.bak
 sed -i "s/<\!--HostName>www.wso2.org<\/HostName-->/<HostName>`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`<\/HostName>/g" ~/wso2bps/repository/conf/carbon.xml;
