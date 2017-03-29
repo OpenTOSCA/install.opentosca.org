@@ -14,6 +14,6 @@ nohup ./OpenTOSCA >>~/OpenTOSCA/nohup.log 2>&1 &
 sleep 3
 
 echo "Startup will be finished in background...";
-echo " + Run 'tail -f ~/OpenTOSCA/nohup.log ~/wso2bps/nohup.log' to see what's happening";
-echo " + Wait a minute";
-echo " + Open 'http://<HOST>:8080' in your browser to access the OpenTOSCA ecosystem";
+echo "Run 'tail -f ~/OpenTOSCA/nohup.log ~/wso2bps/nohup.log' to see what's happening";
+echo "Wait a minute";
+echo "Open 'http://<HOST>:8080' in your browser to access the OpenTOSCA ecosystem";

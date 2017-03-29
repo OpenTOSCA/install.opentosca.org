@@ -1,7 +1,7 @@
 #!/bin/sh
 TAG="v1.3-beta"
 export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/$TAG"
-echo "\n\nUsing tag: $TAG"
+printf "Using tag: $TAG\n\n"
 
 # docker install
 sudo apt-get update
