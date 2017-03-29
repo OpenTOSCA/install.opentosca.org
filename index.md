@@ -1,6 +1,5 @@
 ---
-title: OpenTOSCA Ecosystem
-layout: index
+layout: default
 ---
 
 # OpenTOSCA Ecosystem
