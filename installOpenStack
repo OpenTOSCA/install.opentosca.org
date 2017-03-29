@@ -5,7 +5,9 @@ sudo sh -c "echo '127.0.0.1' $(hostname) >> /etc/hosts";
 
 export TAG="master"
 export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/$TAG"
-printf "Using tag: $TAG\n\n"
+printf "Using tag: $TAG\n"
+printf "URL: $SCRIPTPATH/includeInstallCommon.sh\n"
+
 wget -qO- $SCRIPTPATH/includeInstallCommon.sh | sh
 
 printf "### Fix BPS settings for OpenStack\n\n"
