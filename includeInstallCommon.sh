@@ -2,16 +2,16 @@
 
 printf "Common install routines...\n"
 
-if [ -n "$TAG" ]; then
-  #in case tag is set, we take this as version for all installed components
-  export CONTAINER_VERSION=$TAG
-  export UI_VERSION=$TAG
-  export WINERY_VERSION=$TAG
-fi
-
 if [ -z "${TAG}${CONTAINER_VERSION}${UI_VERSION}${WINERY_VERSION}" ]; then
   echo "A tag or specific versions have to be given"
   exit
+fi
+
+if [ -z "$CONTAINER_VERSION" ]; then
+  #in case no specific version are set, we take the tag as version for all installed components
+  export CONTAINER_VERSION=$TAG
+  export UI_VERSION=$TAG
+  export WINERY_VERSION=$TAG
 fi
 
 echo "Using container version $CONTAINER_VERSION"
