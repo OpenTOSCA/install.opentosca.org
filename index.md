@@ -86,13 +86,13 @@ Step by step:
 
 ### Amazon CloudFormation
 
-[testing, UNSTABLE] Short version: [CloudFormation Template](http://install.opentosca.de/cloudformation.template)
+[testing, UNSTABLE] Short version: [CloudFormation Template](http://install.opentosca.org/cloudformation.template)
 
 Step by step:
 
 1. Open https://console.aws.amazon.com/cloudformation
 1. Create a new stack in region of your choice
-1. Select “Upload a Template File” and upload this template: http://install.opentosca.de/cloudformation.template
+1. Select “Upload a Template File” and upload this template: http://install.opentosca.org/cloudformation.template
 1. Input
     1. KeyName
         1. Name of the EC2 Key Pair to access the created instance
