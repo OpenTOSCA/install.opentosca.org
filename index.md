@@ -6,8 +6,11 @@ layout: default
 
 Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
 
-## Installation
+Besides these installation scripts, we offer a dockerized OpenTOSCA environment at <https://github.com/OpenTOSCA/opentosca-dockerfiles>.
+That environment builds the latest versions from source.
+This script here uses builds from <http://builds.opentosca.org/>.
 
+## Installation
 
 ### General Remarks
 
