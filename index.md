@@ -113,9 +113,10 @@ The OpenTOSCA eco system is open source and actively developed on GitHub. Please
 Our main components are:
 
 * OpenTOSCA container - TOSCA runtime: https://github.com/OpenTOSCA/container
-* Vinothek - OpenTOSCA self-service portal: https://github.com/OpenTOSCA/vinothek
-* Landing page of OpenTOSCA container: https://github.com/OpenTOSCA/ui-root
-* Admin Page of OpenTOSCA container: https://github.com/OpenTOSCA/ui-admin
+* OpenTOSCA UI - the new UI for the container: https://github.com/OpenTOSCA/ui
+* <s>Vinothek - OpenTOSCA self-service portal: https://github.com/OpenTOSCA/vinothek</s> - replaced by OpenTOSCA UI
+* <s>Landing page of OpenTOSCA container: https://github.com/OpenTOSCA/ui-root</s> - replaced by OpenTOSCA UI
+* <s>Admin Page of OpenTOSCA container: https://github.com/OpenTOSCA/ui-admin</s> - replaced by OpenTOSCA UI
 * Winery: https://github.com/eclipse/winery
 
 
