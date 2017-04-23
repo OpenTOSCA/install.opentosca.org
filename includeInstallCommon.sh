@@ -26,6 +26,11 @@ THIRDPARTYPATH="http://files.opentosca.org/third-party/$CONTAINER_VERSION"
 
 printf "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA\n"
 
+# following does not work:
+# export DEBIAN_FRONTEND="noninteractive"
+# solution from https://github.com/phusion/baseimage-docker/issues/58#issuecomment-47995343
+echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
+
 printf "\n\n### Update Package List\n"
 sudo apt-get -y update
 
