@@ -89,15 +89,14 @@ printf "\n\n### Retreive, Configure, and Install UI\n"
 # the ui is named "opentosca" to have nice urls
 wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war || (echo "not found"; exit 404)
 
+# patch ip into ui
 IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 cd /tmp
 mkdir ui
 cd ui
 unzip ~/opentosca.war
-sed -i "s/dev.winery.opentosca.org/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-sed -i "s/dev.winery.opentosca.org/$IP/g" WEB-INF/classes/static/main.bundle.js
-sed -i "s/opentosca-dev.iaas.uni-stuttgart.de/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-sed -i "s/opentosca-dev.iaas.uni-stuttgart.de/$IP/g" WEB-INF/classes/static/main.bundle.js
+sed -i "s/localhost/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+sed -i "s/localhost/$IP/g" WEB-INF/classes/static/main.bundle.js
 zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
 zip -r ~/opentosca.war WEB-INF/classes/static/main.bundle.js
 cd ~
