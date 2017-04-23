@@ -26,8 +26,8 @@ Run this command and some minutes later you've a running OpenTOSCA instance (tes
 
 #### Generic Script
 
-- [v1.1, STABLE, Ubuntu 12.04] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
-- [testing, UNSTABLE, Ubuntu 16.04, 64bit] Short version: `wget -qO- http://install.opentosca.org/install | sh`
+- **v1.1, STABLE, Ubuntu 12.04**: Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
+- **testing, UNSTABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install | sh`
 
 We recommend 2 CPUs, 6 GB of RAM, 100 GB hard disk space.
 
@@ -40,8 +40,8 @@ Step by step:
 
 #### Amazon EC2
 
-- [v1.1, STABLE] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installEC2 | sh`
-- [testing, UNSTABLE] Short version: `wget -qO- http://install.opentosca.org/installEC2 | sh`
+- **v1.1**: Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installEC2 | sh`
+- **testing**: Short version: `wget -qO- http://install.opentosca.org/installEC2 | sh`
 
 Step by step:
 
@@ -67,8 +67,8 @@ Step by step:
 
 #### OpenStack
 
-- [v1.1, STABLE, Ubuntu 12.04] Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installOpenStack | sh`
-- [testing, UNSTABLE, Ubuntu 16.04, 64bit] Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
+- **v1.1**: Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installOpenStack | sh`
+- **testing** Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
 
 Step by step:
 
@@ -89,7 +89,7 @@ Step by step:
 
 ### Amazon CloudFormation
 
-[testing, UNSTABLE] Short version: [CloudFormation Template](http://install.opentosca.org/cloudformation.template)
+* **testing** Short version: [CloudFormation Template](http://install.opentosca.org/cloudformation.template)
 
 Step by step:
 
