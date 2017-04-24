@@ -169,3 +169,17 @@ cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
 chmod +x OpenTOSCA
 cd ..
+
+printf "\n\n### Build and Install OpenTOSCA\n"
+sudo apt-get install npm
+cd ~
+git clone --depth=1 https://github.com/winery/BPMN4TOSCAModeler.git
+cd BPMN4TOCSAModeler
+sudo npm install -g grunt-cli
+npm install
+grunt
+cp -r dist /var/lib/tomcat8/webapps/bpmn4tosca
+# Winery does not support reloading its properties
+# tomcat should be up and running at this state - we can just patch the tomcat config
+sudo sed -i "sXbpmn4toscamodelerBaseURI=.*Xbpmn4toscamodelerBaseURI=http://$IP:8080/bpmn4toscaX" /var/lib/tomcat8/webapps/winery/WEB-INF/classes/winery.properties
+sudo systemctl restart tomcat
