@@ -1,6 +1,6 @@
 *.iml
 .idea/
-
+node_modules/
 
 # Created by https://www.gitignore.io/api/java,maven,eclipse,intellij,windows,linux,macos
 

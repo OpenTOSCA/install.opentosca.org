@@ -1,7 +1,6 @@
 ---
 layout: default
 ---
-
 # OpenTOSCA Ecosystem
 
 Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
@@ -9,6 +8,24 @@ Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
 Besides these installation scripts, we offer a dockerized OpenTOSCA environment at <https://github.com/OpenTOSCA/opentosca-dockerfiles>.
 That environment builds the latest versions from source.
 This script here uses builds from <http://builds.opentosca.org/>.
+
+## Table of Contents
+
+<!-- toc -->
+
+- [Installation](#installation)
+  * [General Remarks](#general-remarks)
+  * [Automated installation](#automated-installation)
+    + [Generic Script](#generic-script)
+    + [Amazon EC2](#amazon-ec2)
+    + [OpenStack](#openstack)
+  * [Amazon CloudFormation](#amazon-cloudformation)
+- [Repositories](#repositories)
+- [Known Major Issues](#known-major-issues)
+- [Contact](#contact)
+- [Documentation](#documentation)
+
+<!-- tocstop -->
 
 ## Installation
 
@@ -133,3 +150,4 @@ If you need support, contact us at <opentosca@iaas.uni-stuttgart.de>.
 ## Documentation
 
 * [OpenTOSCA Documentation, Publications, Videos, Presentations](http://www.opentosca.org)
+

@@ -7,6 +7,11 @@ This repository contains the installation scripts and binaries of the [OpenTOSCA
 
 Installation instructions are given in [index.md](index.md), which is rendered at <http://install.opentosca.org/>.
 
+## Generate TOC
+
+1. `npm install markdown-toc`
+2.  `node_modules\.bin\markdown-toc -i index.md`
+
 ## Supporting files
 
 - `includeInstallCommon.sh` - included by the `install*` scripts for installation
