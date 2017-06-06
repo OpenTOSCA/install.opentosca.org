@@ -13,7 +13,10 @@ cd OpenTOSCA
 nohup ./OpenTOSCA >>~/OpenTOSCA/nohup.log 2>&1 &
 sleep 3
 
+echo "Starting OpenTOSCA Web UI"
+sudo service opentosca-web start
+
 echo "Startup will be finished in background...";
 echo "Run 'tail -f ~/OpenTOSCA/nohup.log ~/wso2bps/nohup.log' to see what's happening";
 echo "Wait a minute";
-echo "Open 'http://<HOST>:8080' in your browser to access the OpenTOSCA ecosystem";
+echo "Open 'http://<HOST>:8088' in your browser to access the OpenTOSCA ecosystem";

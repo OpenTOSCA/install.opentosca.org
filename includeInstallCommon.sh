@@ -59,21 +59,21 @@ sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
 #wget -N $BINPATH/ROOT.war;
 #sudo rm /var/lib/tomcat7/webapps/ROOT -fr;
 #sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
-cat << EOF | sudo tee /var/lib/tomcat8/webapps/ROOT/index.html
-<!DOCTYPE HTML>
-<html lang="en-US">
-    <head>
-        <meta http-equiv="refresh" content="1;url=/opentosca/">
-        <script type="text/javascript">
-            window.location.href = "opentosca/"
-        </script>
-        <title>OpenTOSA</title>
-    </head>
-    <body>
-        Please wait while OpenTOSCA is loading...
-    </body>
-</html>
-EOF
+# cat << EOF | sudo tee /var/lib/tomcat8/webapps/ROOT/index.html
+# <!DOCTYPE HTML>
+# <html lang="en-US">
+#    <head>
+#        <meta http-equiv="refresh" content="1;url=/opentosca/">
+#        <script type="text/javascript">
+#            window.location.href = "opentosca/"
+#        </script>
+#        <title>OpenTOSA</title>
+#    </head>
+#    <body>
+#        Please wait while OpenTOSCA is loading...
+#    </body>
+# </html>
+# EOF
 
 sudo sh -c "cat <<EOF > /root/rsyncd.conf
 use chroot = no
@@ -100,12 +100,13 @@ cd /tmp
 mkdir ui
 cd ui
 unzip ~/opentosca.war
-sed -i "s/localhost/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-sed -i "s/localhost/$IP/g" WEB-INF/classes/static/main.bundle.js
-zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-zip -r ~/opentosca.war WEB-INF/classes/static/main.bundle.js
+# sed -i "s/localhost/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+sed -i "s/localhost/$IP/g" WEB-INF/classes/static/main.*.bundle.js
+# zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
+zip -r ~/opentosca.war WEB-INF/classes/static/main.*.bundle.js
 cd ~
-sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
+# sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
+sudo ln -s ./opentosca.war /etc/init.d/opentosca-web
 
 #echo "\n\n### Install vinothek.war"
 #wget -N $BINPATH/vinothek.war;
