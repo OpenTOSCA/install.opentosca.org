@@ -38,7 +38,7 @@ printf "\n\n### Include security fixes\n"
 sudo apt-get -y upgrade
 
 printf "\n\n### Install Tomcat 8\n"
-sudo apt-get -y install tomcat8 tomcat8-admin zip unzip
+sudo apt-get install -y tomcat8 tomcat8-admin zip unzip apt-transport-https ca-certificates curl software-properties-common wget
 sudo service tomcat8 stop
 
 printf "\n\n### Set CATALINA_OPTS\n"
@@ -93,20 +93,22 @@ EOF
 printf "\n\n### Retreive, Configure, and Install UI\n"
 # the ui is named "opentosca" to have nice urls
 wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war || (echo "not found"; exit 404)
-
 # patch ip into ui
-IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
-cd /tmp
-mkdir ui
-cd ui
-unzip ~/opentosca.war
+# IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+# cd /tmp
+# mkdir ui
+# cd ui
+# unzip ~/opentosca.war
 # sed -i "s/localhost/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-sed -i "s/localhost/$IP/g" WEB-INF/classes/static/main.*.bundle.js
+# sed -i "s/localhost/$IP/g" WEB-INF/classes/static/main.*.bundle.js
 # zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-zip -r ~/opentosca.war WEB-INF/classes/static/main.*.bundle.js
-cd ~
+# zip -r ~/opentosca.war WEB-INF/classes/static/main.*.bundle.js
+# cd ~
 # sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
-sudo ln -s ./opentosca.war /etc/init.d/opentosca-web
+sudo mv opentosca.war /opt
+sudo chmod +x /opt/opentosca.war
+sudo ln -s /opt/opentosca.war /etc/init.d/opentosca-web
+sudo update-rc.d opentosca-web defaults
 
 #echo "\n\n### Install vinothek.war"
 #wget -N $BINPATH/vinothek.war;
@@ -152,7 +154,7 @@ printf "\n\n### Install Docker\n"
 #sudo apt-get install -y docker-engine
 #echo 'DOCKER_OPTS="-D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"' | sudo tee -a /etc/default/docker > /dev/null
 #sudo service docker restart
-sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+# sudo apt-get remove docker docker-engine
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
@@ -171,16 +173,16 @@ unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
 chmod +x OpenTOSCA
 cd ..
 
-printf "\n\n### Build and Install OpenTOSCA\n"
-sudo apt-get install npm
-cd ~
-git clone --depth=1 https://github.com/winery/BPMN4TOSCAModeler.git
-cd BPMN4TOCSAModeler
-sudo npm install -g grunt-cli
-npm install
-grunt
-cp -r dist /var/lib/tomcat8/webapps/bpmn4tosca
-# Winery does not support reloading its properties
-# tomcat should be up and running at this state - we can just patch the tomcat config
-sudo sed -i "sXbpmn4toscamodelerBaseURI=.*Xbpmn4toscamodelerBaseURI=http://$IP:8080/bpmn4toscaX" /var/lib/tomcat8/webapps/winery/WEB-INF/classes/winery.properties
-sudo systemctl restart tomcat
+# printf "\n\n### Build and Install OpenTOSCA\n"
+# sudo apt-get install -y npm
+# cd ~
+# git clone --depth=1 https://github.com/winery/BPMN4TOSCAModeler.git
+# cd BPMN4TOCSAModeler
+# sudo npm install -g grunt-cli
+# npm install
+# grunt
+# cp -r dist /var/lib/tomcat8/webapps/bpmn4tosca
+# # Winery does not support reloading its properties
+# # tomcat should be up and running at this state - we can just patch the tomcat config
+# sudo sed -i "sXbpmn4toscamodelerBaseURI=.*Xbpmn4toscamodelerBaseURI=http://$IP:8080/bpmn4toscaX" /var/lib/tomcat8/webapps/winery/WEB-INF/classes/winery.properties
+# sudo systemctl restart tomcat8
