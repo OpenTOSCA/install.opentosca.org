@@ -119,6 +119,7 @@ wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war || (echo "not found"; exit 
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war || (echo "not found"; exit 404)
 sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
+sudo cp /var/lib/tomcat8/webapps/winery.war /var/lib/tomcat8/webapps/container-model-repository.war
 
 printf "\n\n### Import Winery Repository (into home)\n"
 sudo mkdir ~tomcat8/winery-repository;
@@ -172,6 +173,7 @@ wget -N $BUILDPATH/container/$CONTAINER_VERSION/org.opentosca.container.product-
 mkdir OpenTOSCA
 cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
+sudo sed -ie "s/org.opentosca.container.hostname=localhost/org.opentosca.container.hostname=`curl -s ifconfig.co`/g" configuration/config.ini
 chmod +x OpenTOSCA
 cd ..
 
