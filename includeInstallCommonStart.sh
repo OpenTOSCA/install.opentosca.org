@@ -19,4 +19,4 @@ sudo service opentosca-web start
 echo "Startup will be finished in background...";
 echo "Run 'tail -f ~/OpenTOSCA/nohup.log ~/wso2bps/nohup.log' to see what's happening";
 echo "Wait a minute";
-echo "Open 'http://<HOST>:8088' in your browser to access the OpenTOSCA ecosystem";
+echo "Open 'http://`curl -s ifconfig.co`:8088' in your browser to access the OpenTOSCA ecosystem";
