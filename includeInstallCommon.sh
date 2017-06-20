@@ -160,6 +160,8 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get install -y docker-ce
 sudo service docker stop
+sudo usermod -aG docker $USER
+sudo systemctl enable docker
 sudo sed -ie "s/ExecStart=\/usr\/bin\/dockerd -H fd:\/\//ExecStart=\/usr\/bin\/dockerd -H fd:\/\/ -H tcp:\/\/0.0.0.0:2375/g" /lib/systemd/system/docker.service
 sudo systemctl daemon-reload
 sudo service docker start
