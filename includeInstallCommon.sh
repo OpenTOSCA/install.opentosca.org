@@ -94,7 +94,12 @@ printf "\n\n### Retreive, Configure, and Install UI\n"
 # the ui is named "opentosca" to have nice urls
 wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war || (echo "not found"; exit 404)
 # patch ip into ui
-# IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+export IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+if [ -z "$IP" ]; then
+  #in case instance is not an openstack client
+  export IP= `curl -s ifconfig.co`;
+fi
+printf "\nExternal IP=$IP\n"
 # cd /tmp
 # mkdir ui
 # cd ui
@@ -173,7 +178,7 @@ wget -N $BUILDPATH/container/$CONTAINER_VERSION/org.opentosca.container.product-
 mkdir OpenTOSCA
 cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
-sudo sed -ie "s/org.opentosca.container.hostname=localhost/org.opentosca.container.hostname=`curl -s ifconfig.co`/g" configuration/config.ini
+sudo sed -ie "s/org.opentosca.container.hostname=localhost/org.opentosca.container.hostname=$IP/g" configuration/config.ini
 chmod +x OpenTOSCA
 cd ..
 
