@@ -124,7 +124,7 @@ wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war || (echo "not found"; exit 
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war || (echo "not found"; exit 404)
 sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
-sudo cp /var/lib/tomcat8/webapps/winery.war /var/lib/tomcat8/webapps/container-model-repository.war
+sudo cp /var/lib/tomcat8/webapps/winery.war /var/lib/tomcat8/webapps/containerrepository.war
 
 printf "\n\n### Import Winery Repository (into home)\n"
 sudo mkdir ~tomcat8/winery-repository;
