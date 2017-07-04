@@ -3,7 +3,12 @@
 # to fix the hostname unknown problem (Ubuntu > 14.04)
 sudo sh -c "echo '127.0.0.1' $(hostname) >> /etc/hosts";
 
-export TAG="master"
+export TAG="v2.0.0"
+
+export CONTAINER_VERSION=v2.0.0
+export UI_VERSION=v2.0.0
+export WINERY_VERSION=v2.0.0-M1-OpenTOSCA
+
 export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/$TAG"
 printf "Using tag: $TAG\n"
 printf "URL: $SCRIPTPATH/includeInstallCommon.sh\n"

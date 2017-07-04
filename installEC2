@@ -1,5 +1,13 @@
 #!/bin/sh
-TAG="v1.2-alpha"
+export CONTAINER_VERSION=v2.0.0
+export UI_VERSION=v2.0.0
+export WINERY_VERSION=v2.0.0-M1-OpenTOSCA
+
+export TAG="v2.0.0"
+TAG="v2.0.0"
+printf "Using stable version"${TAG}"\n"
+printf "Override by using the environment variable TAG\n"
+
 export SCRIPTPATH="https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/$TAG"
 printf "Using tag: $TAG\n\n"
 wget -qO- $SCRIPTPATH/includeInstallCommon.sh | sh
