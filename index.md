@@ -3,7 +3,7 @@ layout: default
 ---
 # OpenTOSCA Ecosystem
 
-Version v1.1 is the current stable version of the OpenTOSCA ecosystem.
+Version v2.0.0 is the current stable version of the OpenTOSCA ecosystem.
 
 Besides these installation scripts, we offer a dockerized OpenTOSCA environment at <https://github.com/OpenTOSCA/opentosca-dockerfiles>.
 That environment builds the latest versions from source.
@@ -43,8 +43,10 @@ Run this command and some minutes later you've a running OpenTOSCA instance (tes
 
 #### Generic Script
 
+- **v2.0.0, STABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install | sh`
+  - With KVM Hypervisor Install: `wget -qO- http://install.opentosca.org/installKVM | sh`
 - **v1.1, STABLE, Ubuntu 12.04**: Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/install | sh`
-- **testing, UNSTABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install | sh`
+- **testing, UNSTABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/latest | sh`
 
 We recommend 2 CPUs, 6 GB of RAM, 100 GB hard disk space.
 
@@ -57,8 +59,8 @@ Step by step:
 
 #### Amazon EC2
 
+- **v2.0.0, STABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/installEC2 | sh`
 - **v1.1**: Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installEC2 | sh`
-- **testing**: Short version: `wget -qO- http://install.opentosca.org/installEC2 | sh`
 
 Step by step:
 
@@ -84,8 +86,8 @@ Step by step:
 
 #### OpenStack
 
+- **v2.0.0, STABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
 - **v1.1**: Short version: `wget -qO- https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/v1.1/installOpenStack | sh`
-- **testing** Short version: `wget -qO- http://install.opentosca.org/installOpenStack | sh`
 
 Step by step:
 
@@ -150,4 +152,3 @@ If you need support, contact us at <opentosca@iaas.uni-stuttgart.de>.
 ## Documentation
 
 * [OpenTOSCA Documentation, Publications, Videos, Presentations](http://www.opentosca.org)
-
