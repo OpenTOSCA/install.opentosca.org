@@ -97,7 +97,7 @@ wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war || (echo "not found"; exit 404)
 export IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 if [ -z "$IP" ]; then
   #in case instance is not an openstack client
-  export IP= `curl -s ifconfig.co`;
+  export IP=`curl -s ifconfig.co`;
 fi
 printf "\nExternal IP=$IP\n"
 # cd /tmp
