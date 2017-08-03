@@ -99,7 +99,7 @@ EOF
 
 printf "\n\n### Retreive, Configure, and Install UI\n"
 # the ui is named "opentosca" to have nice urls
-wget -N $BUILDPATH/ui/$UI_VERSION/opentosca.war || (echo "not found"; exit 404)
+wget -N $BUILDPATH/ui/$UI_VERSION/opentosca-ui.war || (echo "not found"; exit 404)
 # patch ip into ui
 export IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 if [ -z "$IP" ]; then
@@ -117,9 +117,9 @@ printf "\nExternal IP=$IP\n"
 # zip -r ~/opentosca.war WEB-INF/classes/static/main.*.bundle.js
 # cd ~
 # sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
-sudo mv opentosca.war /opt
-sudo chmod +x /opt/opentosca.war
-sudo ln -s /opt/opentosca.war /etc/init.d/opentosca-web
+sudo mv opentosca-ui.war /opt
+sudo chmod +x /opt/opentosca-ui.war
+sudo ln -s /opt/opentosca-ui.war /etc/init.d/opentosca-web
 sudo update-rc.d opentosca-web defaults
 
 #echo "\n\n### Install vinothek.war"
