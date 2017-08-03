@@ -13,7 +13,9 @@ if [ -z "$CONTAINER_VERSION" ]; then
   printf "CONTAINER_VERISON not set. Falling back to tag.\n"
   export CONTAINER_VERSION=$TAG
   export UI_VERSION=$TAG
-  export WINERY_VERSION=$TAG
+  if [ -z "$WINERY_VERSION" ]; then
+    export WINERY_VERSION=$TAG
+  fi
 fi
 
 printf "Using container version $CONTAINER_VERSION"
