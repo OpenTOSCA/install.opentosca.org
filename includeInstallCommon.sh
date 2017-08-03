@@ -22,9 +22,14 @@ printf "Using container version $CONTAINER_VERSION"
 printf "Using ui version $UI_VERSION"
 printf "Using winery version $WINERY_VERSION"
 
+# where are the other scripts coming together with this script?
 BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$CONTAINER_VERSION"
+
+# where do we find our builds?
 BUILDPATH="http://builds.opentosca.org/"
-THIRDPARTYPATH="http://files.opentosca.org/third-party/$CONTAINER_VERSION"
+
+# third party dependencies are versioned separately
+THIRDPARTYPATH="http://files.opentosca.org/third-party/v2.0.0"
 
 printf "\n\n### AUTOMATICALLY INSTALLING OpenTOSCA\n"
 
