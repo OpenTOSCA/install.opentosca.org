@@ -5,11 +5,11 @@ if [ -z ${CONTAINER_VERSION}${TAG} ]; then
   export WINERY_VERSION=v2.0.0-M1-OpenTOSCA
 
   export TAG="v2.0.0"
-  printf "Using stable version"${TAG}"\n"
+  printf "Using stable version TAG\n"
   printf "Override by using the environment variable TAG\n"
 fi
 
-export SCRIPTPATH="https://github.com/OpenTOSCA/install.opentosca.org/blob/Refactoring"
+export SCRIPTPATH="https://github.com/OpenTOSCA/install.opentosca.org/tree/Refactoring"
 
 wget -qO- $SCRIPTPATH/includeInstallCommon.sh | sh
 wget -qO- $SCRIPTPATH/includeInstallCommonStart.sh | sh
