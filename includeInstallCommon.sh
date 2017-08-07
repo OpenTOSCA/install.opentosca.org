@@ -18,15 +18,15 @@ if [ -z "$CONTAINER_VERSION" ]; then
   fi
 fi
 
-printf "Using container version $CONTAINER_VERSION"
-printf "Using ui version $UI_VERSION"
-printf "Using winery version $WINERY_VERSION"
+printf "Using container version $CONTAINER_VERSION\n"
+printf "Using ui version $UI_VERSION\n"
+printf "Using winery version $WINERY_VERSION\n"
 
 # where are the other scripts coming together with this script?
 BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$CONTAINER_VERSION"
 
 # where do we find our builds?
-BUILDPATH="http://builds.opentosca.org/"
+BUILDPATH="http://builds.opentosca.org"
 
 # third party dependencies are versioned separately
 THIRDPARTYPATH="http://files.opentosca.org/third-party/v2.0.0"
