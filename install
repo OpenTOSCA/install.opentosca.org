@@ -11,5 +11,7 @@ fi
 
 export SCRIPTPATH="."
 
+chmod +x $SCRIPTPATH/includeInstallCommon.sh
 $SCRIPTPATH/includeInstallCommon.sh
+chmod +x $SCRIPTPATH/includeInstallCommonStart.sh
 $SCRIPTPATH/includeInstallCommonStart.sh
