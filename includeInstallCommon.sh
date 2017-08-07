@@ -60,7 +60,7 @@ cd ~
 wget -N $THIRDPARTYPATH/tomcat-users.xml || (echo "not found"; exit 404)
 wget -N $THIRDPARTYPATH/server.xml || (echo "not found"; exit 404)
 sudo mv ./tomcat-users.xml /var/lib/tomcat8/conf/tomcat-users.xml
-sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
+#sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
 
 #echo "\n\n### Install ROOT.war"
 #wget -N $BINPATH/ROOT.war;
