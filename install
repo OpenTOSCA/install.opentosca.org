@@ -1,8 +1,8 @@
 #!/bin/sh
 if [ -z ${CONTAINER_VERSION}${TAG} ]; then
-  export CONTAINER_VERSION=v2.0.0
-  export UI_VERSION=v2.0.0
-  export WINERY_VERSION=v2.0.0-M1-OpenTOSCA
+  export CONTAINER_VERSION=master
+  export UI_VERSION=master
+  export WINERY_VERSION=master
 
   export TAG="v2.0.0"
   printf "Using stable version TAG\n"
