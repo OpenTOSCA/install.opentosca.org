@@ -110,9 +110,10 @@ cd ~
 wget -N $THIRDPARTYPATH/wso2bps-2.1.2-java8.zip || (echo "not found"; exit 404)
 unzip -qo wso2bps-2.1.2-java8.zip
 mv wso2bps-2.1.2/ wso2bps/
-chmod +x wso2bps/bin/wso2server.sh
-#sudo ln -s wso2bps/bin/wso2server.sh /etc/init.d/opentosca-wso2bps
-#sudo update-rc.d opentosca-wso2bps defaults
+sudo mv wso2bps/bin/wso2server.sh /opt
+chmod +x /opt/wso2server.sh
+sudo ln -s /opt/wso2server.sh /etc/init.d/opentosca-wso2bps
+sudo update-rc.d opentosca-wso2bps defaults
 
 printf "\n\n### REST Extension\n"
 cd ~
