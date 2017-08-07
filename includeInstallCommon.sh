@@ -111,8 +111,8 @@ wget -N $THIRDPARTYPATH/wso2bps-2.1.2-java8.zip || (echo "not found"; exit 404)
 unzip -qo wso2bps-2.1.2-java8.zip
 mv wso2bps-2.1.2/ wso2bps/
 chmod +x wso2bps/bin/wso2server.sh
-sudo ln -s wso2bps/bin/wso2server.sh /etc/init.d/opentosca-wso2bps
-sudo update-rc.d opentosca-wso2bps defaults
+#sudo ln -s wso2bps/bin/wso2server.sh /etc/init.d/opentosca-wso2bps
+#sudo update-rc.d opentosca-wso2bps defaults
 
 printf "\n\n### REST Extension\n"
 cd ~
@@ -146,6 +146,6 @@ cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
 sudo sed -ie "s/org.opentosca.container.hostname=localhost/org.opentosca.container.hostname=$IP/g" configuration/config.ini
 chmod +x OpenTOSCA
-sudo ln -s OpenTOSCA /etc/init.d/opentosca-container
-sudo update-rc.d opentosca-container defaults
+#sudo ln -s OpenTOSCA /etc/init.d/opentosca-container
+#sudo update-rc.d opentosca-container defaults
 cd ..

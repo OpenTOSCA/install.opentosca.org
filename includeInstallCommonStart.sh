@@ -5,12 +5,12 @@ cd ~
 export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
 
 echo "Starting WSO2 BPS...";
-nohup sudo service opentosca-wso2bps start >> ~/wso2bps/nohup.log 2>&1 &
+nohup ./wso2bps/bin/wso2server.sh >> ~/wso2bps/nohup.log 2>&1 &
 sleep 3
 
 echo "Starting OpenTOSCA container..."
 cd OpenTOSCA
-nohup sudo service opentosca-container start >>~/OpenTOSCA/nohup.log 2>&1 &
+nohup ./OpenTOSCA >>~/OpenTOSCA/nohup.log 2>&1 &
 sleep 3
 
 echo "Starting OpenTOSCA Web UI"
