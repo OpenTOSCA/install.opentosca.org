@@ -26,7 +26,7 @@ printf "Using winery version $WINERY_VERSION"
 BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$CONTAINER_VERSION"
 
 # where do we find our builds?
-BUILDPATH="http://builds.opentosca.org/"
+BUILDPATH="http://builds.opentosca.org"
 
 # third party dependencies are versioned separately
 THIRDPARTYPATH="http://files.opentosca.org/third-party/v2.0.0"
