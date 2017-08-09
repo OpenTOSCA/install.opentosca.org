@@ -18,15 +18,18 @@ if [ -z "$CONTAINER_VERSION" ]; then
   fi
 fi
 
-printf "Using container version $CONTAINER_VERSION"
-printf "Using ui version $UI_VERSION"
-printf "Using winery version $WINERY_VERSION"
+printf "Using container version $CONTAINER_VERSION\n"
+printf "Using ui version $UI_VERSION\n"
+printf "Using winery version $WINERY_VERSION\n"
 
 # where are the other scripts coming together with this script?
 BINPATH="https://github.com/OpenTOSCA/install.opentosca.org/releases/download/$CONTAINER_VERSION"
 
 # where do we find our builds?
-BUILDPATH="http://builds.opentosca.org/"
+BUILDPATH="http://builds.opentosca.org"
+
+# where are tomcat config files
+TOMCAT_CONFIG_PATH="https://cdn.rawgit.com/OpenTOSCA/engine-ia/a11ca314"
 
 # third party dependencies are versioned separately
 THIRDPARTYPATH="http://files.opentosca.org/third-party/v2.0.0"
@@ -57,10 +60,12 @@ export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
 
 printf "\n\n### Tomcat User Settings\n"
 cd ~
-wget -N $THIRDPARTYPATH/tomcat-users.xml || (echo "not found"; exit 404)
-wget -N $THIRDPARTYPATH/server.xml || (echo "not found"; exit 404)
-sudo mv ./tomcat-users.xml /var/lib/tomcat8/conf/tomcat-users.xml
+wget -N ${TOMCAT_CONFIG_PATH}/tomcat-users.xml.tpl || (echo "not found"; exit 404)
+wget -N ${TOMCAT_CONFIG_PATH}/server.xml || (echo "not found"; exit 404)
+wget -N ${TOMCAT_CONFIG_PATH}/manager.xml || (echo "not found"; exit 404)
+sudo mv ./tomcat-users.xml.tpl /var/lib/tomcat8/conf/tomcat-users.xml
 sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
+sudo mv ./manager.xml /var/lib/tomcat8/conf/manager.xml
 
 #echo "\n\n### Install ROOT.war"
 #wget -N $BINPATH/ROOT.war;
@@ -98,7 +103,7 @@ EOF
 #sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
 
 printf "\n\n### Retreive, Configure, and Install UI\n"
-# the ui is named "opentosca" to have nice urls
+# the ui is named "opentosca-ui" to have nice urls
 wget -N $BUILDPATH/ui/$UI_VERSION/opentosca-ui.war || (echo "not found"; exit 404)
 # patch ip into ui
 export IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
@@ -116,7 +121,7 @@ printf "\nExternal IP=$IP\n"
 # zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
 # zip -r ~/opentosca.war WEB-INF/classes/static/main.*.bundle.js
 # cd ~
-# sudo mv ./opentosca.war /var/lib/tomcat8/webapps/
+# sudo mv ./opentosca-ui.war /var/lib/tomcat8/webapps/
 sudo mv opentosca-ui.war /opt
 sudo chmod +x /opt/opentosca-ui.war
 sudo ln -s /opt/opentosca-ui.war /etc/init.d/opentosca-web
@@ -129,8 +134,11 @@ sudo update-rc.d opentosca-web defaults
 printf "\n\n### Install Winery\n"
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war || (echo "not found"; exit 404)
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war || (echo "not found"; exit 404)
+wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-ui.war || (echo "not found"; exit 404)
 sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
+sudo mv ./winery-ui.war /var/lib/tomcat8/webapps/ROOT.war
+sudo rm -Rf /var/lib/tomcat8/webapps/ROOT
 sudo cp /var/lib/tomcat8/webapps/winery.war /var/lib/tomcat8/webapps/containerrepository.war
 
 printf "\n\n### Import Winery Repository (into home)\n"
