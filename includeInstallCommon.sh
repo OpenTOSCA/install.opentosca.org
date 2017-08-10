@@ -60,6 +60,7 @@ export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
 
 printf "\n\n### Tomcat User Settings\n"
 cd ~
+
 wget -N ${TOMCAT_CONFIG_PATH}/tomcat-users.xml.tpl || (echo "not found"; exit 404)
 wget -N ${TOMCAT_CONFIG_PATH}/server.xml || (echo "not found"; exit 404)
 wget -N ${TOMCAT_CONFIG_PATH}/manager.xml || (echo "not found"; exit 404)
