@@ -1,0 +1,9 @@
+[Unit]
+Description="This service starts the WSO2 BPS server"
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/start-wso2bps.sh
+
+[Install]
+WantedBy=multi-user.target

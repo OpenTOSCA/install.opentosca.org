@@ -1,0 +1,9 @@
+[Unit]
+Description="This service starts the OpenTOSCA Container"
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/start-container.sh
+
+[Install]
+WantedBy=multi-user.target
