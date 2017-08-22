@@ -78,32 +78,25 @@ uid = root
 EOF
 "
 
-printf "\n\n### Retreive, Configure, and Install UI\n"
-#TODO:: Change this after refactoring
-UI_WAR_NAME="opentosca-ui.war"
-if [ "$UI_VERSION" = "v2.0.0" ]; then
-	UI_WAR_NAME="opentosca.war"
-fi
-echo $UI_WAR_NAME
-# the ui is named "opentosca-ui" to have nice urls
-wget -N $BUILDPATH/ui/$UI_VERSION/$UI_WAR_NAME || (echo "not found"; exit 404)
-# patch ip into ui
+# Retrieve external IP address
 export IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 if [ -z "$IP" ]; then
   #in case instance is not an openstack client
   export IP=`curl -s ifconfig.co`;
 fi
-printf "\nExternal IP=$IP\n"
-sudo mv $UI_WAR_NAME /opt
-sudo chmod +x /opt/$UI_WAR_NAME
-sudo ln -s /opt/$UI_WAR_NAME /etc/init.d/opentosca-web
+printf "\nExternal IP address = $IP\n"
+
+printf "\n\n### Retreive, Configure, and Install UI\n"
+wget -N $BUILDPATH/ui/$UI_VERSION/opentosca-ui.war || (echo "not found"; exit 404)
+sudo mv opentosca-ui.war /opt
+sudo chmod +x /opt/opentosca-ui.war
+sudo ln -s /opt/opentosca-ui.war /etc/init.d/opentosca-web
 sudo update-rc.d opentosca-web defaults
 
 printf "\n\n### Install Winery\n"
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war || (echo "not found"; exit 404)
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war || (echo "not found"; exit 404)
-# TODO: Change 'master' to version after next release
-wget -N $BUILDPATH/winery/master/winery-ui.war || (echo "not found"; exit 404)
+wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-ui.war || (echo "not found"; exit 404)
 sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
 sudo mv ./winery-ui.war /var/lib/tomcat8/webapps/ROOT.war
