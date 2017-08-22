@@ -1,5 +1,4 @@
 #!/bin/sh
-
 printf "Common install routines...\n"
 printf "DEBUG: x${TAG}x${CONTAINER_VERSION}x${UI_VERSION}x${WINERY_VERSION}x\n"
 
@@ -60,32 +59,13 @@ export JAVA_HOME="$(readlink -f /usr/bin/java | sed "s:bin/java::")";
 
 printf "\n\n### Tomcat User Settings\n"
 cd ~
+
 wget -N ${TOMCAT_CONFIG_PATH}/tomcat-users.xml.tpl || (echo "not found"; exit 404)
 wget -N ${TOMCAT_CONFIG_PATH}/server.xml || (echo "not found"; exit 404)
 wget -N ${TOMCAT_CONFIG_PATH}/manager.xml || (echo "not found"; exit 404)
 sudo mv ./tomcat-users.xml.tpl /var/lib/tomcat8/conf/tomcat-users.xml
 sudo mv ./server.xml /var/lib/tomcat8/conf/server.xml
-sudo mv ./manager.xml /var/lib/tomcat8/conf/manager.xml
-
-#echo "\n\n### Install ROOT.war"
-#wget -N $BINPATH/ROOT.war;
-#sudo rm /var/lib/tomcat7/webapps/ROOT -fr;
-#sudo mv ./ROOT.war /var/lib/tomcat7/webapps/ROOT.war;
-# cat << EOF | sudo tee /var/lib/tomcat8/webapps/ROOT/index.html
-# <!DOCTYPE HTML>
-# <html lang="en-US">
-#    <head>
-#        <meta http-equiv="refresh" content="1;url=/opentosca/">
-#        <script type="text/javascript">
-#            window.location.href = "opentosca/"
-#        </script>
-#        <title>OpenTOSA</title>
-#    </head>
-#    <body>
-#        Please wait while OpenTOSCA is loading...
-#    </body>
-# </html>
-# EOF
+sudo mv ./manager.xml /var/lib/tomcat8/conf/Catalina/localhost/manager.xml
 
 sudo sh -c "cat <<EOF > /root/rsyncd.conf
 use chroot = no
@@ -98,13 +78,15 @@ uid = root
 EOF
 "
 
-#echo "\n\n### Install admin.war"
-#wget -N $BINPATH/admin.war;
-#sudo mv ./admin.war /var/lib/tomcat7/webapps/admin.war;
-
 printf "\n\n### Retreive, Configure, and Install UI\n"
+#TODO:: Change this after refactoring
+UI_WAR_NAME="opentosca-ui.war"
+if [ "$UI_VERSION" = "v2.0.0" ]; then
+	UI_WAR_NAME="opentosca.war"
+fi
+echo $UI_WAR_NAME
 # the ui is named "opentosca-ui" to have nice urls
-wget -N $BUILDPATH/ui/$UI_VERSION/opentosca-ui.war || (echo "not found"; exit 404)
+wget -N $BUILDPATH/ui/$UI_VERSION/$UI_WAR_NAME || (echo "not found"; exit 404)
 # patch ip into ui
 export IP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
 if [ -z "$IP" ]; then
@@ -112,29 +94,16 @@ if [ -z "$IP" ]; then
   export IP=`curl -s ifconfig.co`;
 fi
 printf "\nExternal IP=$IP\n"
-# cd /tmp
-# mkdir ui
-# cd ui
-# unzip ~/opentosca.war
-# sed -i "s/localhost/$IP/g" WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-# sed -i "s/localhost/$IP/g" WEB-INF/classes/static/main.*.bundle.js
-# zip -r ~/opentosca.war WEB-INF/classes/static/doc/modules/_app_redux_store_.html
-# zip -r ~/opentosca.war WEB-INF/classes/static/main.*.bundle.js
-# cd ~
-# sudo mv ./opentosca-ui.war /var/lib/tomcat8/webapps/
-sudo mv opentosca-ui.war /opt
-sudo chmod +x /opt/opentosca-ui.war
-sudo ln -s /opt/opentosca-ui.war /etc/init.d/opentosca-web
+sudo mv $UI_WAR_NAME /opt
+sudo chmod +x /opt/$UI_WAR_NAME
+sudo ln -s /opt/$UI_WAR_NAME /etc/init.d/opentosca-web
 sudo update-rc.d opentosca-web defaults
-
-#echo "\n\n### Install vinothek.war"
-#wget -N $BINPATH/vinothek.war;
-#sudo mv ./vinothek.war /var/lib/tomcat7/webapps/vinothek.war;
 
 printf "\n\n### Install Winery\n"
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war || (echo "not found"; exit 404)
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-topologymodeler.war || (echo "not found"; exit 404)
-wget -N $BUILDPATH/winery/$WINERY_VERSION/winery-ui.war || (echo "not found"; exit 404)
+# TODO: Change 'master' to version after next release
+wget -N $BUILDPATH/winery/master/winery-ui.war || (echo "not found"; exit 404)
 sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
 sudo mv ./winery-ui.war /var/lib/tomcat8/webapps/ROOT.war
@@ -154,28 +123,43 @@ printf "\n\n### Install WSO2 BPS\n"
 cd ~
 wget -N $THIRDPARTYPATH/wso2bps-2.1.2-java8.zip || (echo "not found"; exit 404)
 unzip -qo wso2bps-2.1.2-java8.zip
-mv wso2bps-2.1.2/ wso2bps/
+sudo mv wso2bps-2.1.2/ wso2bps/
 chmod +x wso2bps/bin/wso2server.sh
 
 printf "\n\n### REST Extension\n"
 cd ~
 wget -N $THIRDPARTYPATH/bpel4restlight1.1.1.jar || (echo "not found"; exit 404)
-rm  wso2bps/repository/components/lib/bpel4*
-mv  bpel4restlight1.1.1.jar wso2bps/repository/components/lib/
+sudo rm  wso2bps/repository/components/lib/bpel4*
+sudo mv  bpel4restlight1.1.1.jar wso2bps/repository/components/lib/
 
 printf "\n\n### Configure REST Extension\n"
 cd ~
 wget -N $THIRDPARTYPATH/bps.xml || (echo "not found"; exit 404)
-mv bps.xml wso2bps/repository/conf/bps.xml
+sudo mv bps.xml wso2bps/repository/conf/bps.xml
+
+printf "\n\n#Move WSO2 BPS to /opt\n"
+cd ~
+sudo mv wso2bps /opt/
+
+#Download the Service files to the system folder
+sudo wget $SCRIPTPATH/opentosca-wso2bps.service -O /etc/systemd/system/opentosca-wso2bps.service
+
+#Copy the Service init files to the /opt folder
+sudo wget $SCRIPTPATH/start-wso2bps.sh -O /usr/local/bin/start-wso2bps.sh
+
+#Convert the init script to an executable
+sudo chmod +x /usr/local/bin/start-wso2bps.sh
+
+#Create Environment VAriable File for the Service
+sudo mkdir /etc/systemd/system/opentosca-wso2bps.service.d
+sudo sh -c "echo '[Service]\nEnvironment=\"JAVA_HOME='$(readlink -f /usr/bin/java | sed "s:bin/java::")'\"' >> /etc/systemd/system/opentosca-wso2bps.service.d/override.conf";
+
+printf "\n\n#Register WSO2 BPS Service\n"
+sudo chmod 664 /etc/systemd/system/opentosca-wso2bps.service
+sudo systemctl daemon-reload
+sudo systemctl enable opentosca-wso2bps.service
 
 printf "\n\n### Install Docker\n"
-#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-#sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
-#sudo apt-get update
-#sudo apt-get install -y docker-engine
-#echo 'DOCKER_OPTS="-D -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"' | sudo tee -a /etc/default/docker > /dev/null
-#sudo service docker restart
-# sudo apt-get remove docker docker-engine
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
@@ -183,30 +167,33 @@ sudo apt-get install -y docker-ce
 sudo service docker stop
 sudo usermod -aG docker $USER
 sudo systemctl enable docker
-sudo sed -ie "s/ExecStart=\/usr\/bin\/dockerd -H fd:\/\//ExecStart=\/usr\/bin\/dockerd -H fd:\/\/ -H tcp:\/\/0.0.0.0:2375/g" /lib/systemd/system/docker.service
+sudo sed -ie "s/ExecStart=\/usr\/bin\/dockerd -H fd:\/\/$/ExecStart=\/usr\/bin\/dockerd -H fd:\/\/ -H tcp:\/\/0.0.0.0:2375/g" /lib/systemd/system/docker.service
 sudo systemctl daemon-reload
 sudo service docker start
 
-printf "\n\n### Install OpenTOSCA\n"
+printf "\n\n### Install OpenTOSCA Container\n"
 cd ~
 wget -N $BUILDPATH/container/$CONTAINER_VERSION/org.opentosca.container.product-linux.gtk.x86_64.zip || (echo "not found"; exit 404)
-mkdir OpenTOSCA
+sudo mkdir OpenTOSCA
 cd OpenTOSCA
 unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
 sudo sed -ie "s/org.opentosca.container.hostname=localhost/org.opentosca.container.hostname=$IP/g" configuration/config.ini
 chmod +x OpenTOSCA
 cd ..
 
-# printf "\n\n### Build and Install OpenTOSCA\n"
-# sudo apt-get install -y npm
-# cd ~
-# git clone --depth=1 https://github.com/winery/BPMN4TOSCAModeler.git
-# cd BPMN4TOCSAModeler
-# sudo npm install -g grunt-cli
-# npm install
-# grunt
-# cp -r dist /var/lib/tomcat8/webapps/bpmn4tosca
-# # Winery does not support reloading its properties
-# # tomcat should be up and running at this state - we can just patch the tomcat config
-# sudo sed -i "sXbpmn4toscamodelerBaseURI=.*Xbpmn4toscamodelerBaseURI=http://$IP:8080/bpmn4toscaX" /var/lib/tomcat8/webapps/winery/WEB-INF/classes/winery.properties
-# sudo systemctl restart tomcat8
+printf "\n\n### Move OpenTOSCA to /opt\n"
+sudo mv OpenTOSCA /opt/
+
+#Download the Service files to the system folder
+sudo wget $SCRIPTPATH/opentosca-container.service -O /etc/systemd/system/opentosca-container.service
+
+#Copy the Service init files to the /opt folder
+sudo wget $SCRIPTPATH/start-container.sh -O /usr/local/bin/start-container.sh
+
+#Convert the init script to an executable
+sudo chmod +x /usr/local/bin/start-container.sh
+
+printf "\n\n#Register OpenTOSCA Container Service\n"
+sudo chmod 664 /etc/systemd/system/opentosca-container.service
+sudo systemctl daemon-reload
+sudo systemctl enable opentosca-container.service
