@@ -86,12 +86,9 @@ if [ -z "$IP" ]; then
 fi
 printf "\nExternal IP address = $IP\n"
 
-printf "\n\n### Retreive, Configure, and Install UI\n"
+printf "\n\n### Retrieve, Configure, and Install UI\n"
 wget -N $BUILDPATH/ui/$UI_VERSION/opentosca-ui.war || (echo "not found"; exit 404)
-sudo mv opentosca-ui.war /opt
-sudo chmod +x /opt/opentosca-ui.war
-sudo ln -s /opt/opentosca-ui.war /etc/init.d/opentosca-web
-sudo update-rc.d opentosca-web defaults
+sudo mv opentosca-ui.war /var/lib/tomcat8/webapps
 
 printf "\n\n### Install Winery\n"
 wget -N $BUILDPATH/winery/$WINERY_VERSION/winery.war || (echo "not found"; exit 404)
@@ -101,7 +98,7 @@ sudo mv ./winery.war /var/lib/tomcat8/webapps
 sudo mv ./winery-topologymodeler.war /var/lib/tomcat8/webapps
 sudo mv ./winery-ui.war /var/lib/tomcat8/webapps/ROOT.war
 sudo rm -Rf /var/lib/tomcat8/webapps/ROOT
-sudo cp /var/lib/tomcat8/webapps/winery.war /var/lib/tomcat8/webapps/containerrepository.war
+sudo cp /var/lib/tomcat8/webapps/winery.war /var/lib/tomcat8/webapps/container-repository.war
 
 printf "\n\n### Import Winery Repository (into home)\n"
 sudo mkdir ~tomcat8/winery-repository;
