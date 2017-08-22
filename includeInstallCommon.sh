@@ -115,9 +115,9 @@ sudo service tomcat8 start
 printf "\n\n### Install WSO2 BPS\n"
 cd ~
 wget -N $THIRDPARTYPATH/wso2bps-2.1.2-java8.zip || (echo "not found"; exit 404)
-unzip -qo wso2bps-2.1.2-java8.zip
+sudo unzip -qo wso2bps-2.1.2-java8.zip
 sudo mv wso2bps-2.1.2/ wso2bps/
-chmod +x wso2bps/bin/wso2server.sh
+sudo chmod +x wso2bps/bin/wso2server.sh
 
 printf "\n\n### REST Extension\n"
 cd ~
@@ -169,9 +169,9 @@ cd ~
 wget -N $BUILDPATH/container/$CONTAINER_VERSION/org.opentosca.container.product-linux.gtk.x86_64.zip || (echo "not found"; exit 404)
 sudo mkdir OpenTOSCA
 cd OpenTOSCA
-unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
+sudo unzip -qo ../org.opentosca.container.product-linux.gtk.x86_64.zip
 sudo sed -ie "s/org.opentosca.container.hostname=localhost/org.opentosca.container.hostname=$IP/g" configuration/config.ini
-chmod +x OpenTOSCA
+sudo chmod +x OpenTOSCA
 cd ..
 
 printf "\n\n### Move OpenTOSCA to /opt\n"
