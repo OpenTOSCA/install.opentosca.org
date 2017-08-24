@@ -25,7 +25,7 @@ Installation instructions are given in [index.md](index.md), which is rendered a
 
 We follow the [Google Shell Styleguide](https://google.github.io/styleguide/shell.xml#File_Extensions) as shortly explained at http://askubuntu.com/a/503129/196423
 
-## Haftung
+## Haftungsausschluss
 
 Dies ist ein Forschungsprototyp.
 Die Haftung für entgangenen Gewinn, Produktionsausfall, Betriebsunterbrechung, entgangene Nutzungen, Verlust von Daten und Informationen, Finanzierungsaufwendungen sowie sonstige Vermögens- und Folgeschäden ist, außer in Fällen von grober Fahrlässigkeit, Vorsatz und Personenschäden ausgeschlossen.
