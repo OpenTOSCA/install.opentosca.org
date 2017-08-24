@@ -1,0 +1,82 @@
+#!/bin/sh
+
+if [ -z ${TAG} ]; then
+  export TAG="master"
+fi
+
+echo
+echo "==============================================================================="
+echo " Dockerized OpenTOSCA Environment"
+echo " Version: $TAG"
+echo "==============================================================================="
+echo
+echo " Haftungsausschluss
+ ------------------
+ Dies ist ein Forschungsprototyp. Die Haftung für entgangenen Gewinn,
+ Produktionsausfall, Betriebsunterbrechung, entgangene Nutzungen, Verlust von
+ Daten und Informationen, Finanzierungsaufwendungen sowie sonstige Vermögens-
+ und Folgeschäden ist, außer in Fällen von grober Fahrlässigkeit, Vorsatz und
+ Personenschäden ausgeschlossen.
+
+ Disclaimer of Warranty
+ ----------------------
+ Unless required by applicable law or agreed to in writing, Licensor provides
+ the Work (and each Contributor provides its Contributions) on an "AS IS"
+ BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
+ including, without limitation, any warranties or conditions of TITLE,
+ NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You
+ are solely responsible for determining the appropriateness of using or
+ redistributing the Work and assume any risks associated with Your exercise of
+ permissions under this License."
+echo
+echo "==============================================================================="
+echo
+
+SCRIPT_PATH="https://raw.githubusercontent.com/OpenTOSCA/install.opentosca.org/$TAG"
+
+# Install Docker
+sudo apt-get -qq update
+sudo apt-get -qq -y install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get -qq update
+sudo apt-get -qq -y install docker-ce
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo systemctl enable docker
+sudo sed -ie "s/ExecStart=\/usr\/bin\/dockerd -H fd:\/\/$/ExecStart=\/usr\/bin\/dockerd -H fd:\/\/ -H tcp:\/\/0.0.0.0:2375/g" /lib/systemd/system/docker.service
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+# Install Docker Compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.15.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Determine IP address
+if [ -z "$IP_ADDRESS" ]; then
+    IP_ADDRESS=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+    if [ -z "$IP_ADDRESS" ]; then
+        IP_ADDRESS=`curl -s ifconfig.co`;
+    fi
+fi
+# echo "IP Address: $IP_ADDRESS"
+
+# Setup dockerized OpenTOSCA environment
+sudo mkdir -p /opt/opentosca
+sudo mkdir -p /var/opentosca
+sudo wget $SCRIPT_PATH/docker-compose.yml -O /opt/opentosca/docker-compose.yml
+sudo sed -ie "s/{{ IP_ADDRESS }}/$IP_ADDRESS/g" /opt/opentosca/docker-compose.yml
+sudo sh -c "echo $IP_ADDRESS container >> /etc/hosts"
+sudo sh -c "echo $IP_ADDRESS container-repository >> /etc/hosts"
+sudo sh -c "echo $IP_ADDRESS ui >> /etc/hosts"
+sudo sh -c "echo $IP_ADDRESS engine-plan >> /etc/hosts"
+sudo sh -c "echo $IP_ADDRESS engine-ia >> /etc/hosts"
+sudo sh -c "echo $IP_ADDRESS winery >> /etc/hosts"
+sudo sh -c "echo $IP_ADDRESS portainer >> /etc/hosts"
+sudo docker-compose -f /opt/opentosca/docker-compose.yml up -d
+
+echo
+echo "Startup will be finished in background..."
+echo "Open 'http://$IP_ADDRESS:8088' in your browser to access OpenTOSCA"
+echo "Open 'http://$IP_ADDRESS:9000' in your browser to access the monitoring tool"
+echo
