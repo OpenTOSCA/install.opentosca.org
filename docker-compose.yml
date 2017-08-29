@@ -41,14 +41,14 @@ services:
   engine-ia:
     image: opentosca/engine-ia
     ports:
-      - '8080:8080'
+      - '8090:8080'
     networks:
       - opentosca
     restart: unless-stopped
   winery:
     image: opentosca/winery
     ports:
-      - '8090:8080'
+      - '8080:8080'
     volumes:
       - /var/opentosca/winery/repository:/var/opentosca/repository
     networks:
