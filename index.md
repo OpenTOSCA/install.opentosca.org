@@ -48,6 +48,7 @@ The setup has three major components that are installed as **systemd services** 
 | OpenTOSCA Container | `opentosca-container` | `opentosca-container.service` | `start-container.sh` |
 | WSO2 BPS Server | `opentosca-wso2bps` | `opentosca-wso2bps.service` | `start-wso2bps.sh` |
 | Apache Tomcat Sever | `tomcat8` | - | - |
+{: class="table table-bordered table-striped table-condensed"}
 
 **Note:** All the services are configured to restart automatically on system reboot.
 
