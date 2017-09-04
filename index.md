@@ -59,6 +59,7 @@ Although the services are automatically started, the following commands can be u
 | Start | `sudo systemctl start opentosca-container | opentosca-wso2bps | tomcat8` |
 | Stop | `sudo systemctl stop opentosca-container | opentosca-wso2bps | tomcat8` |
 | Monitor| `sudo systemctl status opentosca-container | opentosca-wso2bps | tomcat8` |
+{: class="table table-bordered table-striped table-condensed"}
 
 Once the installation is complete, you can access the components using the following URLs:
 
@@ -70,6 +71,7 @@ Once the installation is complete, you can access the components using the follo
 | OpenTOSCA Container Repository| `http://<HOST_NAME>:8080/container-repository` |
 | Plan Engine (WSO2 BPS)| `http://<HOST_NAME>:9763` (user: `admin`, password: `admin`) |
 | IA Engine (Apache Tomcat) | `http://localhost:8080/manager` (user: `admin`, password: `admin`) |
+{: class="table table-bordered table-striped table-condensed"}
 
 
 #### Ubuntu
@@ -154,6 +156,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 | OpenTOSCA Container Repository | `http://<HOST_NAME>:8081` | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
 | Plan Engine (WSO2 BPS) | `http://<HOST_NAME>:9763`<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-plan) | [Link](https://hub.docker.com/r/opentosca/engine-plan) |
 | IA Engine (Apache Tomcat) | `http://<HOST_NAME>:8090/manager`<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
+{: class="table table-bordered table-striped table-condensed"}
 
 You can check the status of the different containers by using the _Portainer_ Management UI at <http://HOST_NAME:9000>.
 
