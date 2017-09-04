@@ -83,5 +83,5 @@ echo "OpenTOSCA Container API: http://$IP_ADDRESS:1337"
 echo "OpenTOSCA Container Repository: http://$IP_ADDRESS:8081"
 echo "Plan Engine (WSO2 BPS): http://$IP_ADDRESS:9763 (user: admin, password: admin)"
 echo "IA Engine (Apache Tomcat): http://$IP_ADDRESS:8090/manager (user: admin, password: admin)"
-echo "Docker Management UI:: http://$IP_ADDRESS:9000"
+echo "Docker Management UI: http://$IP_ADDRESS:9000"
 echo
