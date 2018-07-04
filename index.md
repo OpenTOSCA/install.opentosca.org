@@ -37,14 +37,14 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://<HOSTNAME>:8
 
 | OpenTOSCA Component | URL |
 |:------------------- |:--- |
-| OpenTOSCA UI | http://<HOSTNAME>:8088 |
-| OpenTOSCA Modelling (Eclipse Winery) | http://<HOSTNAME>:8080 |
-| OpenTOSCA Container API | http://<HOSTNAME>:1337 |
-| OpenTOSCA Container Repository | http://<HOSTNAME>:8081 |
-| Plan Engine (Apache ODE) | http://<HOSTNAME>:9763/ode |
-| IA Engine (Apache Tomcat) | http://<HOSTNAME>:8090/manager<br>(user: `admin`, password: `admin`) |
+| OpenTOSCA UI | http://HOSTNAME:8088 |
+| OpenTOSCA Modelling (Eclipse Winery) | http://HOSTNAME:8080 |
+| OpenTOSCA Container API | http://HOSTNAME:1337 |
+| OpenTOSCA Container Repository | http://HOSTNAME:8081 |
+| Plan Engine (Apache ODE) | http://HOSTNAME:9763/ode |
+| IA Engine (Apache Tomcat) | http://HOSTNAME:8090/manager<br>(user: `admin`, password: `admin`) |
 
-You can check the status of the different containers by using the _Portainer_ Management UI at <http://HOST_NAME:9000>.
+You can check the status of the different containers by using the _Portainer_ Management UI at <http://HOSTNAME:9000>.
 
 ## Repositories
 
