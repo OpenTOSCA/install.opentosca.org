@@ -81,12 +81,14 @@ echo "External hostname: $IP_ADDRESS"
 echo "Prepare environment..."
 sudo apt-get -qq update
 sudo apt-get -qq -y install wget unzip
+sudo apt-get install git-all
 sudo mkdir -p /var/opentosca
 sudo mkdir -p /var/opentosca/container/data
 sudo mkdir -p /var/opentosca/container/repository
 sudo mkdir -p /var/opentosca/winery/repository
 sudo mkdir -p /var/opentosca/portainer
 sudo chown -R $USER:$USER /var/opentosca
+sudo git init /var/opentosca/winery/repository
 
 echo "Downloading OpenTOSCA Docker setup..."
 sudo rm -rf /opt/opentosca
