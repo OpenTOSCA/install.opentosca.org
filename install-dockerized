@@ -118,6 +118,9 @@ echo "Starting OpenTOSCA..."
 cd /opt/opentosca
 sudo docker-compose --project-directory /opt/opentosca -f /opt/opentosca/docker-compose.yml pull
 sudo docker-compose --project-directory /opt/opentosca -f /opt/opentosca/docker-compose.yml -f /opt/opentosca/docker-compose.prod.yml -f /opt/opentosca/docker-compose.override.yml up -d
+# This is only a quick fix to get git available in Winery
+sudo docker-compose --project-directory /opt/opentosca -f /opt/opentosca/docker-compose.yml -f /opt/opentosca/docker-compose.prod.yml -f /opt/opentosca/docker-compose.override.yml down -v
+sudo docker-compose --project-directory /opt/opentosca -f /opt/opentosca/docker-compose.yml -f /opt/opentosca/docker-compose.prod.yml -f /opt/opentosca/docker-compose.override.yml up -d
 cd -
 
 echo
