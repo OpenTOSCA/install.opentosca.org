@@ -116,8 +116,9 @@ sudo chown -R $USER:$USER /opt/opentosca
 
 echo "Starting OpenTOSCA..."
 cd /opt/opentosca
-docker-compose --project-directory /opt/opentosca -f /opt/opentosca/docker-compose.yml pull
-docker-compose --project-directory /opt/opentosca -f /opt/opentosca/docker-compose.yml -f /opt/opentosca/docker-compose.prod.yml -f /opt/opentosca/docker-compose.override.yml up -d
+# docker-compose --project-directory /opt/opentosca 
+sudo docker-compose -f /opt/opentosca/docker-compose.yml pull
+sudo docker-compose -f /opt/opentosca/docker-compose.yml -f /opt/opentosca/docker-compose.prod.yml -f /opt/opentosca/docker-compose.override.yml up -d
 cd -
 
 echo
