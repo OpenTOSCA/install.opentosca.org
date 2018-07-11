@@ -70,6 +70,7 @@ else
 fi
 
 # Determine IP address
+echo "Determine external hostname..."
 if [ -z "$IP_ADDRESS" ]; then
     IP_ADDRESS=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
     if [ -z "$IP_ADDRESS" ]; then
@@ -121,12 +122,12 @@ sudo chown -R $USER:$USER /opt/opentosca
 
 echo "Starting OpenTOSCA..."
 cd /opt/opentosca
-docker-compose --project-directory /opt/opentosca \
+sudo docker-compose --project-directory /opt/opentosca \
     -f /opt/opentosca/docker-compose.yml \
     -f /opt/opentosca/docker-compose.prod.yml \
     -f /opt/opentosca/docker-compose.override.yml \
     pull
-docker-compose --project-directory /opt/opentosca \
+sudo docker-compose --project-directory /opt/opentosca \
     -f /opt/opentosca/docker-compose.yml \
     -f /opt/opentosca/docker-compose.prod.yml \
     -f /opt/opentosca/docker-compose.override.yml \
