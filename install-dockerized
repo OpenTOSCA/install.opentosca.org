@@ -80,15 +80,17 @@ echo "External hostname: $IP_ADDRESS"
 
 echo "Prepare environment..."
 sudo apt-get -qq update
-sudo apt-get -qq -y install wget unzip
-sudo apt-get -qq -y install git-all
-sudo mkdir -p /var/opentosca
+sudo apt-get -qq -y install wget unzip git-all git-lfs
+sudo -u $USER git lfs install
+sudo rm -rf /var/opentosca
 sudo mkdir -p /var/opentosca/container/data
 sudo mkdir -p /var/opentosca/container/repository
 sudo mkdir -p /var/opentosca/winery/repository
 sudo mkdir -p /var/opentosca/portainer
+cd /var/opentosca/winery/repository
+sudo git init
+cd -
 sudo chown -R $USER:$USER /var/opentosca
-sudo git init /var/opentosca/winery/repository
 
 echo "Downloading OpenTOSCA Docker setup..."
 sudo rm -rf /opt/opentosca
@@ -118,9 +120,16 @@ sudo chown -R $USER:$USER /opt/opentosca
 
 echo "Starting OpenTOSCA..."
 cd /opt/opentosca
-# docker-compose --project-directory /opt/opentosca 
-sudo docker-compose -f /opt/opentosca/docker-compose.yml pull
-sudo docker-compose -f /opt/opentosca/docker-compose.yml -f /opt/opentosca/docker-compose.prod.yml -f /opt/opentosca/docker-compose.override.yml up -d
+docker-compose --project-directory /opt/opentosca \
+    -f /opt/opentosca/docker-compose.yml \
+    -f /opt/opentosca/docker-compose.prod.yml \
+    -f /opt/opentosca/docker-compose.override.yml \
+    pull
+docker-compose --project-directory /opt/opentosca \
+    -f /opt/opentosca/docker-compose.yml \
+    -f /opt/opentosca/docker-compose.prod.yml \
+    -f /opt/opentosca/docker-compose.override.yml \
+    up -d
 cd -
 
 echo
