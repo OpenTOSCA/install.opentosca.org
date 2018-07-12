@@ -89,7 +89,7 @@ sudo mkdir -p /var/opentosca/portainer
 sudo mkdir -p /var/opentosca/container/data
 sudo mkdir -p /var/opentosca/container/repository
 sudo mkdir -p /var/opentosca/winery
-sudo git clone https://github.com/OpenTOSCA/tosca-definitions-public.git /var/opentosca/winery/repository
+sudo git clone --depth=1 https://github.com/OpenTOSCA/tosca-definitions-public.git /var/opentosca/winery/repository
 sudo chown -R $USER:$USER /var/opentosca
 
 echo "Downloading OpenTOSCA Docker setup..."
