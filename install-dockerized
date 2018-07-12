@@ -85,18 +85,16 @@ sudo apt-get -qq update
 sudo apt-get -qq -y install wget unzip git git-lfs
 sudo -u $USER git lfs install
 sudo rm -rf /var/opentosca
+sudo mkdir -p /var/opentosca/portainer
 sudo mkdir -p /var/opentosca/container/data
 sudo mkdir -p /var/opentosca/container/repository
-sudo mkdir -p /var/opentosca/winery/repository
-sudo mkdir -p /var/opentosca/portainer
-cd /var/opentosca/winery/repository
-sudo git init
-cd -
+sudo mkdir -p /var/opentosca/winery
+sudo git clone https://github.com/OpenTOSCA/tosca-definitions-public.git /var/opentosca/winery/repository
 sudo chown -R $USER:$USER /var/opentosca
 
 echo "Downloading OpenTOSCA Docker setup..."
 sudo rm -rf /opt/opentosca
-sudo git clone -b $TAG https://github.com/OpenTOSCA/opentosca-docker /opt/opentosca
+sudo git clone -b $TAG https://github.com/OpenTOSCA/opentosca-docker.git /opt/opentosca
 
 echo "Configuring Docker environment..."
 sudo sed -ie "s/PUBLIC_HOSTNAME=container/PUBLIC_HOSTNAME=$IP_ADDRESS/g" /opt/opentosca/.env
