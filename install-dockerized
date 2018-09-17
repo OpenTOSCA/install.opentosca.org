@@ -98,17 +98,17 @@ sudo git clone -b $TAG https://github.com/OpenTOSCA/opentosca-docker.git /opt/op
 
 echo "Configuring Docker environment..."
 sudo sed -ie "s/PUBLIC_HOSTNAME=container/PUBLIC_HOSTNAME=$IP_ADDRESS/g" /opt/opentosca/.env
-sudo sh -c "cat <<EOT > /opt/opentosca/docker-compose.override.yml
-version: '3'
-services:
-  container:
-  container-repository:
-  ui:
-  engine-plan:
-  engine-ia:
-  winery:
-  portainer:
-EOT"
+# sudo sh -c "cat <<EOT > /opt/opentosca/docker-compose.override.yml
+# version: '3'
+# services:
+#   container:
+#   container-repository:
+#   ui:
+#   engine-plan:
+#   engine-ia:
+#   winery:
+#   portainer:
+# EOT"
 sudo sh -c "echo $IP_ADDRESS container >> /etc/hosts"
 sudo sh -c "echo $IP_ADDRESS container-repository >> /etc/hosts"
 sudo sh -c "echo $IP_ADDRESS ui >> /etc/hosts"
