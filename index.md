@@ -32,6 +32,7 @@ Version v2.0.0 is the current stable version of the OpenTOSCA ecosystem.
 The following steps will help you to setup our dockerized OpenTOSCA environment.
 
 - prerequisites: Ubuntu 16.04 64 bit installed
+- **v2.1.0, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install-dockerized | TAG=v2.1.0 sh`
 - **testing, UNSTABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install-dockerized | sh`
 
 Beside of this installation script, there is a Docker Compose configuration available at <https://github.com/OpenTOSCA/opentosca-docker> that can be used to set up a customized environment.
