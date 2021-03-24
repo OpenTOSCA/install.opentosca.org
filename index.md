@@ -3,7 +3,7 @@ layout: default
 ---
 # OpenTOSCA Ecosystem: Installation Instructions
 
-Version v2.2.1 is the current stable version of the OpenTOSCA ecosystem.
+Version v3.0.0 is the current stable version of the OpenTOSCA ecosystem.
 
 ## Table of Contents
 
@@ -29,9 +29,10 @@ Version v2.2.1 is the current stable version of the OpenTOSCA ecosystem.
 
 ### Docker
 
-The following steps will help you to setup our dockerized OpenTOSCA environment.
+The following example steps will help you to setup our dockerized OpenTOSCA environment.
 
 - prerequisites: Ubuntu 16.04 64 bit installed
+- **v3.0.0, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install-dockerized | TAG=v3.0.0 sh`
 - **v2.2.0, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install-dockerized | TAG=v2.2.1 sh`
 - **v2.1.0, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install-dockerized | TAG=v2.1.0 sh`
 - **testing, UNSTABLE, Ubuntu 16.04, 64bit**: Short version: `wget -qO- http://install.opentosca.org/install-dockerized | sh`
