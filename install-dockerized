@@ -97,7 +97,7 @@ sudo rm -rf /opt/opentosca
 sudo git clone -b $TAG https://github.com/OpenTOSCA/opentosca-docker.git /opt/opentosca
 
 echo "Configuring Docker environment..."
-sudo sed -ie "s/PUBLIC_HOSTNAME=.*/PUBLIC_HOSTNAME=$IP_ADDRESS/g" /opt/opentosca/.env
+sudo sed -e "s/PUBLIC_HOSTNAME=.*/PUBLIC_HOSTNAME=$IP_ADDRESS/g" /opt/opentosca/_.env > /opt/opentosca/.env
 sudo sh -c "echo $IP_ADDRESS container >> /etc/hosts"
 sudo sh -c "echo $IP_ADDRESS container-repository >> /etc/hosts"
 sudo sh -c "echo $IP_ADDRESS ui >> /etc/hosts"
